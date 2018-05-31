@@ -20,7 +20,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':base')
-
+    implementation files('libs/commons-net-3.6.jar')
     implementation 'com.github.angads25:filepicker:1.1.1'
     testImplementation 'junit:junit:4.12'
 

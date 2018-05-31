@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
@@ -64,5 +68,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME,null,values);
         db.close();
+    }
+
+    public Collection<User> getAllUsers(){
+        db = this.getReadableDatabase();
+
+        String query = String.format("SELECT * FROM %s",TABLE_NAME);
+
+        Cursor cursor = db.rawQuery(query,null);
+        List<User> result = new ArrayList<>();
+
+       if (!cursor.moveToFirst()){
+           return result;
+       }
+
+        while (cursor!=null){
+            User user = new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+            result.add(user);
+
+            if (!cursor.moveToNext())
+                break;
+        }
+
+        return result;
     }
 }
