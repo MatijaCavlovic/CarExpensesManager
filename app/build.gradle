@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-
-
     defaultConfig {
         applicationId "com.example.carexpensesmanager.app"
         minSdkVersion 23
@@ -13,20 +11,17 @@ android {
 
 
     }
-
     buildTypes {
-       release {
-           minifyEnabled false
-           proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-       }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-
+    productFlavors {
+    }
 }
 
 dependencies {
     implementation project(':feature')
     implementation project(':base')
-
-
-
 }

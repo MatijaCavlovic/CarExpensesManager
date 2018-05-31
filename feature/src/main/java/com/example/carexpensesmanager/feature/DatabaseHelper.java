@@ -18,18 +18,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME ="carManager.db";
-    private static final String TABLE_NAME ="korisnik";
 
-    private static final String ID = "ID";
-    private static final String NAME = "Ime";
-    private static final String SURNAME = "Prezime";
+    //USER
+    private static final String TABLE_NAME_USER ="korisnik";
+    private static final String ID_USER = "ID";
+    private static final String NAME_USER = "Ime";
+    private static final String SURNAME_USER = "Prezime";
 
     private static final String TABLE_CREATE =
-            "create table "+TABLE_NAME+" "+
+            "create table "+TABLE_NAME_USER+" "+
             "(ID integer primary key not null,"+
             "Ime text not null,"+
             "Prezime text not null)";
 
+
+    //CAR
+    private static final String TABLE_NAME_CAR="automobil";
+    private static final String ID_CAR = "ID";
+    private static final String NAME_CAR ="Naziv";
+    private static final String ID_OWNER = "IDVlasnik";
+
+    private static final String TABLE_CREATE_CAR =
+            "create table "+TABLE_NAME_CAR+" "+
+                    "(ID integer primary key not null,"+
+                    "Naziv text not null,"+
+                    "IDVlasnik int not null, "+
+                    "foreign key (IDVlasnik) references korisnik(ID))";
 
 
 
@@ -40,21 +54,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        db.execSQL(TABLE_CREATE_CAR);
         this.db=db;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXISTS "+TABLE_NAME;
+        String query = "DROP TABLE IF EXISTS "+TABLE_NAME_USER;
         db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_CAR;
+        db.execSQL(query);
+
         this.onCreate(db);
     }
 
-    public void insertUser(User user){
+    public boolean insertUser(User user){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        String query = "SELECT MAX(ID) AS MAXID FROM "+TABLE_NAME;
+        String query = "SELECT MAX(ID) AS MAXID FROM "+TABLE_NAME_USER;
         Cursor cursor = db.rawQuery(query,null);
         int id=-1;
         if (cursor!=null){
@@ -62,18 +80,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        values.put(ID,id+1);
-        values.put(NAME,user.getName());
-        values.put(SURNAME,user.getSurname());
+        values.put(ID_USER,id+1);
+        values.put(NAME_USER,user.getName());
+        values.put(SURNAME_USER,user.getSurname());
+        long error;
+        error = db.insert(TABLE_NAME_USER,null,values);
 
-        db.insert(TABLE_NAME,null,values);
         db.close();
+
+        if (error==-1)
+            return false;
+        return true;
     }
 
     public Collection<User> getAllUsers(){
         db = this.getReadableDatabase();
 
-        String query = String.format("SELECT * FROM %s",TABLE_NAME);
+        String query = String.format("SELECT * FROM %s",TABLE_NAME_USER);
 
         Cursor cursor = db.rawQuery(query,null);
         List<User> result = new ArrayList<>();

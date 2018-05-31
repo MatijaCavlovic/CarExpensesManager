@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.Persistance.DataStorage;
+import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.feature.Persistance.SQLiteManager;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
 import com.github.angads25.filepicker.model.DialogConfigs;
 import com.github.angads25.filepicker.model.DialogProperties;
@@ -53,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
      Button btn;
      Button explorerButton;
      Button listUsersBtn;
-
-     EditText name;
-     EditText surname;
+     Button getDbBtn;
      TextView title;
      FilePickerDialog dialog;
      String dbPath;
      String dbcopyPath;
      String databaseFile;
+     DataStorage dataStorage;
 
     // public static String DB_FILEPAth = "/data/data/com.example.carexpensesmanager.feature/databases/carManager.db";
 
@@ -72,83 +74,25 @@ public class MainActivity extends AppCompatActivity {
         btn=findViewById(R.id.button);
         explorerButton = findViewById(R.id.explorerBtn);
         listUsersBtn = findViewById(R.id.listUsersBtn);
+        getDbBtn = findViewById(R.id.getDbBtn);
 
-        name=findViewById(R.id.ime);
-        surname=findViewById(R.id.prezime);
         title = findViewById(R.id.textView2);
         databaseFile = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
+        dataStorage = new SQLiteManager(this);
+        DataStorageSingleton.setDataStorage(dataStorage);
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameString=name.getText().toString();
-                String surnameString = surname.getText().toString();
-
-                User user = new User();
-
-                user.setId(0);
-                user.setName(nameString);
-                user.setSurname(surnameString);
-                helper.insertUser(user);
-                String file = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
-
-                databaseFile = file;
-                title.setText(databaseFile);
-                File dbFile = new File(file);
-                if (dbFile.exists()){
-                    title.setText("Postoji" + file);
-                    System.out.printf("Datoteka Postoji");
-
-                }
-                else{
-                    title.setText("Ne postoji");
-                    System.out.printf("Ne postoji");
-                }
+                Intent intent = new Intent(MainActivity.this, AddUser.class);
+                startActivity(intent);
             }
         });
 
         explorerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                DialogProperties properties = new DialogProperties();
-                FileChooserUtils.init(properties);
-
-                dialog = new FilePickerDialog(MainActivity.this,properties);
-                dialog.setTitle("Select a File");
-
-                dialog.setDialogSelectionListener(new DialogSelectionListener() {
-                    @Override
-                    public void onSelectedFilePaths(String[] files) {
-                        title.setText(files[0]);
-                        File file = new File(files[0]);
-                        dbcopyPath = files[0];
-
-                        if (file.exists()){
-                            title.append(" Postoji");
-                        }
-                        else{
-                            title.append(" ne Postoji");
-                        }
-
-                        dbPath = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
-
-                        File oldDb = new File(dbPath);
-                        File newDb = new File(dbcopyPath+DialogConfigs.DIRECTORY_SEPERATOR+"copy.db");
-
-                        try {
-                            copyFileUsingStream(oldDb,newDb);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-
-                dialog.show();
-
-
-*/
 
                 new Thread(new Runnable() {
                     @Override
@@ -168,6 +112,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        getDbBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
+                    }
+                }).start();
+            }
+        });
+
+
 
 
     }
@@ -190,22 +148,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
-    }
 
     public boolean ftpConnect(String host, String username,
                               String password, int port)
@@ -259,5 +201,61 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
+
+
+    public boolean ftpConnectGet(String host, String username,
+                              String password, int port)
+    {
+        try {
+            mFTPClient = new FTPClient();
+
+            if (android.os.Build.VERSION.SDK_INT > 9) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+            }
+
+            // connecting to the host
+            mFTPClient.connect(host, port);
+
+
+            // now check the reply code, if positive mean connection success
+            if (FTPReply.isPositiveCompletion(mFTPClient.getReplyCode())) {
+                // login using username & password
+                boolean status = mFTPClient.login(username, password);
+
+                /* Set File Transfer Mode
+                 *
+                 * To avoid corruption issue you must specified a correct
+                 * transfer mode, such as ASCII_FILE_TYPE, BINARY_FILE_TYPE,
+                 * EBCDIC_FILE_TYPE .etc. Here, I use BINARY_FILE_TYPE
+                 * for transferring text, image, and compressed files.
+                 */
+                mFTPClient.setFileType(FTP.BINARY_FILE_TYPE);
+                mFTPClient.enterLocalPassiveMode();
+
+                OutputStream fos = null;
+                try{
+                    fos = new FileOutputStream(databaseFile);
+                    mFTPClient.retrieveFile("nova.db",fos);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally{
+                    fos.close();
+                }
+
+
+                // tv.setText(status+"");
+                return status;
+            }
+        } catch(Exception e) {
+            //    tv.setText("failed");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 
 }
