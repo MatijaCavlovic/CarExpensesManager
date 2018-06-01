@@ -129,4 +129,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         result = new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
         return  result;
     }
+
+    public int deleteUser(int id){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_USER,ID_USER+"="+id+"",null);
+
+        return result;
+    }
 }

@@ -33,5 +33,12 @@ public class SQLiteManager implements DataStorage {
         return helper.getUser(id);
     }
 
+    @Override
+    public boolean deleteUser(int id) {
+        if (helper.deleteUser(id)>0)
+            return true;
+        return false;
+    }
+
 
 }

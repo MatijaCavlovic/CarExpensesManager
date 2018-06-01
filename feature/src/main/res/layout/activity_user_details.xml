@@ -19,13 +19,51 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/checkbox_margin"
+        android:paddingLeft="@dimen/toolbar_image_margin"
+        android:paddingTop="@dimen/checkbox_margin"
+        android:textSize="20dp"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/surname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/checkbox_margin"
+        android:paddingLeft="@dimen/toolbar_image_margin"
+        android:paddingTop="@dimen/checkbox_margin"
+        android:textSize="20dp"
         android:text="TextView" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addCarBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/checkbox_margin"
+                android:paddingRight="@dimen/checkbox_margin"
+                android:text="Dodaj automobil" />
+
+            <Button
+                android:id="@+id/deleteUserBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/checkbox_margin"
+                android:paddingRight="@dimen/checkbox_margin"
+                android:text="Izbriši korisnika" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </android.widget.LinearLayout>

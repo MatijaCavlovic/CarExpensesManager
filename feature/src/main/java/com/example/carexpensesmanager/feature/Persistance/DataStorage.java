@@ -10,4 +10,6 @@ public interface DataStorage {
     public Collection<User> getAllUsers();
 
     public User getUser(int id);
+
+    public boolean deleteUser(int id);
 }

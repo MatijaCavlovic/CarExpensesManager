@@ -1,8 +1,10 @@
 package com.example.carexpensesmanager.feature;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +19,19 @@ import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.util.ArrayList;
 
+
 public class UsersAdapter extends ArrayAdapter<User> {
+    AppCompatActivity parentActivity;
+
     public UsersAdapter(@NonNull Context context, ArrayList<User> users) {
         super(context,0, users);
     }
 
+    public UsersAdapter(@NonNull Context context, ArrayList<User> users,AppCompatActivity activity) {
+        super(context,0, users);
+        this.parentActivity = activity;
+    }
     @Override
-
     public View getView(int position, View convertView, ViewGroup parent){
         User user = getItem(position);
         if (convertView==null){
@@ -42,6 +50,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
                 Toast.makeText(getContext(),user.getName() + " "+user.getSurname(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(),UserDetails.class);
                 intent.putExtra("user",user.getId());
+                parentActivity.onBackPressed();
                 getContext().startActivity(intent);
             }
         });

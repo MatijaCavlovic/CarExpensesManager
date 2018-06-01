@@ -40,7 +40,7 @@ public class UserList extends AppCompatActivity {
         }
 
         ArrayList<User> userList = new ArrayList<>(users);
-        UsersAdapter adapter = new UsersAdapter(this,userList);
+        UsersAdapter adapter = new UsersAdapter(this,userList,this);
         listView.setAdapter(adapter);
 
      /*   for (User user:users){
