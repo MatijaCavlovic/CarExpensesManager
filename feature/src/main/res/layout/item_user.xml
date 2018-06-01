@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/toolbar_image_margin"
+        android:paddingLeft="@dimen/checkbox_dimens"
+        android:paddingTop="@dimen/checkbox_margin"
+        android:text="Data"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:clickable="true"
+        />
+</RelativeLayout>

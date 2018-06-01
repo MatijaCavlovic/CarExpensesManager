@@ -21,30 +21,29 @@ public class UserList extends AppCompatActivity {
 
     DataStorage dataStorage;
     ListView listView;
-    List<String> items;
-    ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        LinearLayout list = findViewById(R.id.list);
+       // LinearLayout list = findViewById(R.id.list);
         listView = findViewById(R.id.listView);
-       // DatabaseHelper helper = new DatabaseHelper(this);
-
-       // Collection<User> users = helper.getAllUsers();
         dataStorage = new SQLiteManager(this);
-
         Collection<User> users = dataStorage.getAllUsers();
-        items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, R.layout.activity_user_list,R.id.listView);
+
         if (users.isEmpty()){
             TextView message = new TextView(this);
             Toast toast = Toast.makeText(this,"Lista korisnika je prazna",Toast.LENGTH_LONG);
             toast.show();
 
         }
-        for (User user:users){
+
+        ArrayList<User> userList = new ArrayList<>(users);
+        UsersAdapter adapter = new UsersAdapter(this,userList);
+        listView.setAdapter(adapter);
+
+     /*   for (User user:users){
             String name = user.getName();
             String surname = user.getSurname();
 
@@ -52,6 +51,6 @@ public class UserList extends AppCompatActivity {
             btn.setText(name+" "+surname);
 
             list.addView(btn);
-        }
+        }*/
     }
 }

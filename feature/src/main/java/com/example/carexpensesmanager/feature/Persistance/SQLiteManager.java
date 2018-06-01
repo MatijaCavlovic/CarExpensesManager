@@ -27,4 +27,11 @@ public class SQLiteManager implements DataStorage {
     public Collection<User> getAllUsers() {
         return helper.getAllUsers();
     }
+
+    @Override
+    public User getUser(int id) {
+        return helper.getUser(id);
+    }
+
+
 }

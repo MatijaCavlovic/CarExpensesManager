@@ -113,6 +113,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
         }
 
+        db.close();
         return result;
+    }
+
+    public User getUser(int id){
+        User result = null;
+        db = this.getReadableDatabase();
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_USER,ID_USER,id);
+        Cursor cursor = db.rawQuery(query,null);
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        return  result;
     }
 }
