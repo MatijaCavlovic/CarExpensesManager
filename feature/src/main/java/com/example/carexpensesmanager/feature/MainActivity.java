@@ -244,10 +244,10 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     File file = new File(databaseFile);
 
-                    title.setText(databaseFile);
+                  /*  title.setText(databaseFile);
                     if (file.exists()){
                         title.append(" da");
-                    }
+                    }*/
                     fos = new FileOutputStream(databaseFile);
                     fos.flush();
                     mFTPClient.retrieveFile("nova.db",fos);

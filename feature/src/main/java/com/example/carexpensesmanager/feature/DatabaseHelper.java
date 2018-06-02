@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.util.ArrayList;
@@ -135,6 +136,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         int result;
         result = db.delete(TABLE_NAME_USER,ID_USER+"="+id+"",null);
+        db.close();
+        return result;
+    }
+
+    public boolean insertCar(Car car){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        String query = "SELECT MAX(ID) AS MAXID FROM "+TABLE_NAME_CAR;
+        Cursor cursor = db.rawQuery(query,null);
+        int id=-1;
+        if (cursor!=null){
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+
+        values.put(ID_CAR,id+1);
+        values.put(NAME_CAR,car.getName());
+        values.put(ID_OWNER,car.getOwnerId());
+
+        long error;
+        error = db.insert(TABLE_NAME_CAR,null,values);
+
+        db.close();
+
+        if (error==-1)
+            return false;
+        return true;
+
+    }
+
+    public Collection<Car> getAllUserCars(int userId){
+        db = this.getReadableDatabase();
+
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR,ID_OWNER,userId);
+
+        Cursor cursor = db.rawQuery(query,null);
+        List<Car> result = new ArrayList<>();
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        while (cursor!=null){
+            Car car = new Car(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+            result.add(car);
+            if (!cursor.moveToNext())
+                break;
+        }
         db.close();
         return result;
     }

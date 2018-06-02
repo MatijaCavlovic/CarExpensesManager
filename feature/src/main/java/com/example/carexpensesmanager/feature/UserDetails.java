@@ -5,17 +5,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class UserDetails extends AppCompatActivity {
 
     TextView name;
     TextView surname;
+    Button addCarBtn;
     Button deleteUserBtn;
+    ListView listView;
     User user;
     int userId;
 
@@ -26,7 +33,9 @@ public class UserDetails extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         surname = findViewById(R.id.surname);
+        addCarBtn = findViewById(R.id.addCarBtn);
         deleteUserBtn = findViewById(R.id.deleteUserBtn);
+        listView = findViewById(R.id.carList);
 
         Bundle extras = getIntent().getExtras();
         if (extras!=null){
@@ -46,6 +55,21 @@ public class UserDetails extends AppCompatActivity {
         name.setText(user.getName());
         surname.setText(user.getSurname());
 
+        Collection<Car> userCars = DataStorageSingleton.dataStorage.getAllUserCars(userId);
+        Toast.makeText(getApplicationContext(),userCars.size()+"",Toast.LENGTH_LONG).show();
+        ArrayList<Car> carList = new ArrayList<>(userCars);
+        CarsAdapter adapter = new CarsAdapter(this,carList,this);
+        listView.setAdapter(adapter);
+
+        addCarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AddCar.class);
+                intent.putExtra("user",user.getId());
+                startActivity(intent);
+            }
+        });
+
         deleteUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +85,8 @@ public class UserDetails extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 

@@ -2,6 +2,7 @@ package com.example.carexpensesmanager.feature.Persistance;
 
 import android.content.Context;
 
+import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.io.File;
@@ -17,4 +18,8 @@ public interface DataStorage {
     public boolean deleteUser(int id);
 
     public File getDatabaseFile(Context context);
+
+    public boolean addCar(Car car);
+
+    public Collection<Car> getAllUserCars(int userId);
 }

@@ -2,6 +2,7 @@ package com.example.carexpensesmanager.feature.Persistance;
 
 import android.content.Context;
 
+import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.DatabaseHelper;
 
@@ -45,6 +46,16 @@ public class SQLiteManager implements DataStorage {
     @Override
     public File getDatabaseFile(Context context) {
         return context.getDatabasePath(helper.getDatabaseName());
+    }
+
+    @Override
+    public boolean addCar(Car car) {
+        return helper.insertCar(car);
+    }
+
+    @Override
+    public Collection<Car> getAllUserCars(int userId) {
+        return helper.getAllUserCars(userId);
     }
 
 
