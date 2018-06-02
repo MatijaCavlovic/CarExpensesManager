@@ -5,17 +5,19 @@ import android.content.Context;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.DatabaseHelper;
 
+import java.io.File;
 import java.util.Collection;
 
 public class SQLiteManager implements DataStorage {
 
-    DatabaseHelper helper;
-    Context context;
+    private DatabaseHelper helper;
+    private Context context;
 
-    public SQLiteManager (Context context){
+    public SQLiteManager(Context context) {
         helper = new DatabaseHelper(context);
         this.context = context;
     }
+
     @Override
     public boolean addUser(User user) {
         boolean success;
@@ -35,9 +37,14 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean deleteUser(int id) {
-        if (helper.deleteUser(id)>0)
+        if (helper.deleteUser(id) > 0)
             return true;
         return false;
+    }
+
+    @Override
+    public File getDatabaseFile(Context context) {
+        return context.getDatabasePath(helper.getDatabaseName());
     }
 
 

@@ -52,7 +52,7 @@ import java.nio.file.Paths;
 public class MainActivity extends AppCompatActivity {
 
     public FTPClient mFTPClient = null;
-    DatabaseHelper helper = new DatabaseHelper(this);
+
      Button btn;
      Button explorerButton;
      Button listUsersBtn;
@@ -77,9 +77,12 @@ public class MainActivity extends AppCompatActivity {
         getDbBtn = findViewById(R.id.getDbBtn);
 
         title = findViewById(R.id.textView2);
-        databaseFile = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
         dataStorage = new SQLiteManager(this);
         DataStorageSingleton.setDataStorage(dataStorage);
+        databaseFile = DataStorageSingleton.dataStorage.getDatabaseFile(getBaseContext()).toString();
+        title.setText(databaseFile);
+
+
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -235,8 +238,12 @@ public class MainActivity extends AppCompatActivity {
 
                 OutputStream fos = null;
                 try{
+
                     fos = new FileOutputStream(databaseFile);
+                    title.setText(databaseFile);
                     mFTPClient.retrieveFile("nova.db",fos);
+                    DataStorage dataStorage = new SQLiteManager(this);
+                    DataStorageSingleton.setDataStorage(dataStorage);
                 }
                 catch (Exception e){
                     e.printStackTrace();
