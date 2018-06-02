@@ -8,6 +8,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
      String dbcopyPath;
      String databaseFile;
      DataStorage dataStorage;
-
+     DatabaseHelper helper = new DatabaseHelper(this);
     // public static String DB_FILEPAth = "/data/data/com.example.carexpensesmanager.feature/databases/carManager.db";
 
     @Override
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.textView2);
         dataStorage = new SQLiteManager(this);
         DataStorageSingleton.setDataStorage(dataStorage);
-        databaseFile = DataStorageSingleton.dataStorage.getDatabaseFile(getBaseContext()).toString();
+     //   databaseFile = DataStorageSingleton.dataStorage.getDatabaseFile(getBaseContext()).toString();
+        databaseFile = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
         title.setText(databaseFile);
 
 
@@ -129,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     @Override
@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                               String password, int port)
     {
         try {
+
             mFTPClient = new FTPClient();
 
             if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -183,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
 
                 InputStream fis = null;
                 try{
+//                    Toast.makeText(getApplicationContext(),databaseFile,Toast.LENGTH_LONG).show();
                     fis = new FileInputStream(databaseFile);
+             //       title.setText(databaseFile);
                     mFTPClient.storeFile("nova.db",fis);
                 }
                 catch (Exception e){
@@ -240,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
 
                     fos = new FileOutputStream(databaseFile);
-                    title.setText(databaseFile);
+
                     mFTPClient.retrieveFile("nova.db",fos);
                     DataStorage dataStorage = new SQLiteManager(this);
                     DataStorageSingleton.setDataStorage(dataStorage);
