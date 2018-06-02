@@ -127,6 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         result = new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        db.close();
         return  result;
     }
 
@@ -134,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         int result;
         result = db.delete(TABLE_NAME_USER,ID_USER+"="+id+"",null);
-
+        db.close();
         return result;
     }
 }

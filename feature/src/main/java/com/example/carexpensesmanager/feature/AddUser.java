@@ -27,7 +27,7 @@ public class AddUser extends AppCompatActivity {
         cancelBtn = findViewById(R.id.cancelBtn);
         name = findViewById(R.id.name);
         surname = findViewById(R.id.surname);
-
+        final DatabaseHelper helper = new DatabaseHelper(this);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +40,7 @@ public class AddUser extends AppCompatActivity {
                 user.setName(nameString);
                 user.setSurname(surnameString);
 
-                if (DataStorageSingleton.dataStorage.addUser(user)){
+                if (helper.insertUser(user)){
                     Toast.makeText(getApplicationContext(), "Korisnik "+nameString+" "+surnameString+" dodan",Toast.LENGTH_LONG).show();
 
                 }

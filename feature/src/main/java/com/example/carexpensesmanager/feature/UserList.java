@@ -1,5 +1,6 @@
 package com.example.carexpensesmanager.feature;
 
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -29,8 +30,9 @@ public class UserList extends AppCompatActivity {
 
        // LinearLayout list = findViewById(R.id.list);
         listView = findViewById(R.id.listView);
-        dataStorage = new SQLiteManager(this);
-        Collection<User> users = dataStorage.getAllUsers();
+     //   dataStorage = new SQLiteManager(this);
+        DatabaseHelper helper = new DatabaseHelper(this);
+        Collection<User> users = helper.getAllUsers();
 
         if (users.isEmpty()){
             TextView message = new TextView(this);

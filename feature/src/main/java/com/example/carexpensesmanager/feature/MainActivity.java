@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.textView2);
         dataStorage = new SQLiteManager(this);
         DataStorageSingleton.setDataStorage(dataStorage);
-     //   databaseFile = DataStorageSingleton.dataStorage.getDatabaseFile(getBaseContext()).toString();
+        databaseFile = DataStorageSingleton.dataStorage.getDatabaseFile(getBaseContext()).toString();
         databaseFile = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
-        title.setText(databaseFile);
+       // title.setText(databaseFile);
 
 
 
@@ -121,12 +121,13 @@ public class MainActivity extends AppCompatActivity {
         getDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
+                ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
+             /*   new Thread(new Runnable() {
                     @Override
                     public void run() {
                         ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
                     }
-                }).start();
+                }).start();*/
             }
         });
 
@@ -241,14 +242,28 @@ public class MainActivity extends AppCompatActivity {
 
                 OutputStream fos = null;
                 try{
+                    File file = new File(databaseFile);
 
+                    title.setText(databaseFile);
+                    if (file.exists()){
+                        title.append(" da");
+                    }
                     fos = new FileOutputStream(databaseFile);
-
+                    fos.flush();
                     mFTPClient.retrieveFile("nova.db",fos);
-                    DataStorage dataStorage = new SQLiteManager(this);
-                    DataStorageSingleton.setDataStorage(dataStorage);
+                    fos.flush();
+                    mFTPClient.logout();
+                    mFTPClient.disconnect();
+
+                 /*   DataStorage dataStorage = new SQLiteManager(this);
+                    DataStorageSingleton.setDataStorage(dataStorage);*/
                 }
                 catch (Exception e){
+                    fos.flush();
+                    mFTPClient.logout();
+                    mFTPClient.disconnect();
+                    ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
+
                     e.printStackTrace();
                 }
                 finally{
