@@ -188,4 +188,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+
+    public Car getCar(int id){
+        Car result = null;
+        db = this.getReadableDatabase();
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR,ID_CAR,id);
+        Cursor cursor = db.rawQuery(query,null);
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new Car(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+        db.close();
+        return  result;
+    }
+
+    public int deleteCar(int id){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_CAR,ID_CAR+"="+id+"",null);
+        db.close();
+        return result;
+    }
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 
 import java.util.ArrayList;
 
@@ -40,17 +41,23 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
 
         TextView tvRow = convertView.findViewById(R.id.tvRow);
-        tvRow.setText(user.getName() + " "+user.getSurname());
-        tvRow.setTag(user);
+        TextView numberOfCarsView = convertView.findViewById(R.id.numberOfCarsTv);
+        View element = convertView.findViewById(R.id.element);
+        element.setTag(user);
 
-        tvRow.setOnClickListener(new View.OnClickListener() {
+        tvRow.setText(user.getName() + " "+user.getSurname());
+        int numberOfCars = DataStorageSingleton.dataStorage.getAllUserCars(user.getId()).size();
+        numberOfCarsView.setText("Trenutno posjeduje "+numberOfCars+" automobila");
+      //  tvRow.setTag(user);
+
+        element.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User user = (User) v.getTag();
-                Toast.makeText(getContext(),user.getName() + " "+user.getSurname(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(),UserDetails.class);
                 intent.putExtra("user",user.getId());
-                parentActivity.onBackPressed();
+                parentActivity.getIntent().putExtra("choosenUser",user.getId());
+             //   parentActivity.onBackPressed();
                 getContext().startActivity(intent);
             }
         });

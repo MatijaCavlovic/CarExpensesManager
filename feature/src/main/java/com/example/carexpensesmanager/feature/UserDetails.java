@@ -56,7 +56,6 @@ public class UserDetails extends AppCompatActivity {
         surname.setText(user.getSurname());
 
         Collection<Car> userCars = DataStorageSingleton.dataStorage.getAllUserCars(userId);
-        Toast.makeText(getApplicationContext(),userCars.size()+"",Toast.LENGTH_LONG).show();
         ArrayList<Car> carList = new ArrayList<>(userCars);
         CarsAdapter adapter = new CarsAdapter(this,carList,this);
         listView.setAdapter(adapter);
@@ -90,10 +89,10 @@ public class UserDetails extends AppCompatActivity {
 
     }
 
-    @Override
+ /*   @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(),UserList.class);
         getApplicationContext().startActivity(intent);
-    }
+    }*/
 }

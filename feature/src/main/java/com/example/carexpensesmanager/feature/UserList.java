@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.Persistance.DataStorage;
+import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.Persistance.SQLiteManager;
 
 import java.util.ArrayList;
@@ -22,12 +23,16 @@ public class UserList extends AppCompatActivity {
 
     DataStorage dataStorage;
     ListView listView;
+    //public int choosenUserId;
+    ArrayList<User> userList;
+    UsersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-
+        this.getIntent().putExtra("choosenUser",-1);
+       // choosenUserId = -1;
        // LinearLayout list = findViewById(R.id.list);
         listView = findViewById(R.id.listView);
      //   dataStorage = new SQLiteManager(this);
@@ -41,8 +46,8 @@ public class UserList extends AppCompatActivity {
 
         }
 
-        ArrayList<User> userList = new ArrayList<>(users);
-        UsersAdapter adapter = new UsersAdapter(this,userList,this);
+        userList = new ArrayList<>(users);
+        adapter = new UsersAdapter(this,userList,this);
         listView.setAdapter(adapter);
 
      /*   for (User user:users){
@@ -54,5 +59,33 @@ public class UserList extends AppCompatActivity {
 
             list.addView(btn);
         }*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Bundle extras = getIntent().getExtras();
+        int choosenUserId=-1;
+        if (extras!=null){
+            choosenUserId = extras.getInt("choosenUser");
+        }
+        if (choosenUserId==-1){
+            return;
+        }
+
+        User user = DataStorageSingleton.dataStorage.getUser(choosenUserId);
+        int i;
+        for (i=0;i<userList.size();i++){
+            if (userList.get(i).getId()==choosenUserId)
+                break;
+        }
+
+        if (user==null){
+            userList.remove(i);
+
+        }
+
+        adapter = new UsersAdapter(this,userList,this);
+        listView.setAdapter(adapter);
     }
 }

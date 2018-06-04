@@ -282,5 +282,9 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(),"RESET",Toast.LENGTH_LONG).show();
+    }
 }

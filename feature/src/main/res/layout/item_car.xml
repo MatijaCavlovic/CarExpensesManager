@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/userImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="74dp"
+        android:layout_height="64dp"
         android:layout_alignParentLeft="true"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,16 +28,6 @@
             android:text="Data"
             android:textSize="25dp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/numberOfCarsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvRow"
-
-            android:paddingBottom="@dimen/checkbox_margin"
-            android:paddingTop="@dimen/checkbox_margin"
-            android:text="TextView" />
 
     </RelativeLayout>
 

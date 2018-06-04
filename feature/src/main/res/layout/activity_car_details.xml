@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Detalji o korisniku"
+        android:text="Detalji o automobilu"
         android:textSize="36sp" />
 
     <TableLayout
@@ -29,41 +29,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ime"
+                android:text="Naziv"
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/carName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingBottom="@dimen/checkbox_margin"
                 android:paddingLeft="@dimen/toolbar_image_margin"
                 android:paddingRight="@dimen/checkbox_margin"
-                android:paddingTop="@dimen/checkbox_margin"
-                android:text="TextView"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Prezime"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/surname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="@dimen/checkbox_margin"
-                android:paddingLeft="@dimen/toolbar_image_margin"
                 android:paddingTop="@dimen/checkbox_margin"
                 android:text="TextView"
                 android:textSize="20dp"
@@ -113,28 +89,13 @@
                 android:text="Dodaj automobil" />
 
             <Button
-                android:id="@+id/deleteUserBtn"
+                android:id="@+id/deleteCarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/checkbox_margin"
                 android:paddingRight="@dimen/checkbox_margin"
-                android:text="Izbriši korisnika" />
+                android:text="Izbriši automobil" />
         </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/carList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </ListView>
-    </LinearLayout>
-
-
 </android.widget.LinearLayout>

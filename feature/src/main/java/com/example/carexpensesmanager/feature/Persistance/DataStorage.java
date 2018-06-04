@@ -22,4 +22,8 @@ public interface DataStorage {
     public boolean addCar(Car car);
 
     public Collection<Car> getAllUserCars(int userId);
+
+    public Car getCar(int id);
+
+    public boolean deleteCar(int id);
 }

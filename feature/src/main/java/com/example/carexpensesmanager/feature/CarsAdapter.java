@@ -31,7 +31,7 @@ public class CarsAdapter extends ArrayAdapter<Car> {
     public View getView(int position, View convertView, ViewGroup parent){
         Car car = getItem(position);
         if (convertView==null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_car, parent, false);
         }
 
 

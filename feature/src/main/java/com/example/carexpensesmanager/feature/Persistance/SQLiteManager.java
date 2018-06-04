@@ -58,5 +58,17 @@ public class SQLiteManager implements DataStorage {
         return helper.getAllUserCars(userId);
     }
 
+    @Override
+    public Car getCar(int id) {
+        return helper.getCar(id);
+    }
+
+    @Override
+    public boolean deleteCar(int id) {
+        if (helper.deleteCar(id) > 0)
+            return true;
+        return false;
+    }
+
 
 }
