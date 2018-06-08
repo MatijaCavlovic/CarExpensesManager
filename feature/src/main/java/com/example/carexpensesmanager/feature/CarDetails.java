@@ -1,5 +1,8 @@
 package com.example.carexpensesmanager.feature;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,17 +48,40 @@ public class CarDetails extends AppCompatActivity {
         deleteCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DataStorageSingleton.dataStorage.deleteCar(car.getId())){
-                    Toast.makeText(getApplicationContext()
-                            ,String.format("Automobil %s izbrisan",car.getName())
-                            ,Toast.LENGTH_LONG).show();
-                    onBackPressed();
+                AlertDialog.Builder alert = new AlertDialog.Builder(CarDetails.this);
+                alert.setTitle("Brisanje");
+                alert.setTitle("Želite li izbisati automobil?");
+                alert.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete();
+                        dialog.dismiss();
+                    }
+                });
 
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Došlo je do greške. Molimo pokušajte ponovno.",Toast.LENGTH_LONG).show();
-                }
+                alert.setNegativeButton("NE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
             }
         });
+    }
+
+    private void delete(){
+        if (DataStorageSingleton.dataStorage.deleteCar(car.getId())){
+            Toast.makeText(getApplicationContext()
+                    ,String.format("Automobil %s izbrisan",car.getName())
+                    ,Toast.LENGTH_LONG).show();
+            onBackPressed();
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Došlo je do greške. Molimo pokušajte ponovno.",Toast.LENGTH_LONG).show();
+        }
     }
 }

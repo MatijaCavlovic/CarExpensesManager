@@ -1,6 +1,8 @@
 package com.example.carexpensesmanager.feature;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,11 @@ public class UserDetails extends AppCompatActivity {
     Button addCarBtn;
     Button deleteUserBtn;
     ListView listView;
+
+    Collection<Car> userCars;
+    ArrayList<Car> carList;
+    CarsAdapter adapter;
+
     User user;
     int userId;
 
@@ -55,10 +62,7 @@ public class UserDetails extends AppCompatActivity {
         name.setText(user.getName());
         surname.setText(user.getSurname());
 
-        Collection<Car> userCars = DataStorageSingleton.dataStorage.getAllUserCars(userId);
-        ArrayList<Car> carList = new ArrayList<>(userCars);
-        CarsAdapter adapter = new CarsAdapter(this,carList,this);
-        listView.setAdapter(adapter);
+        this.adapterInit();
 
         addCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,16 +76,25 @@ public class UserDetails extends AppCompatActivity {
         deleteUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DataStorageSingleton.dataStorage.deleteUser(user.getId())){
-                    Toast.makeText(getApplicationContext()
-                            ,String.format("Korisnik %s %s izbrisan",user.getName(),user.getSurname())
-                            ,Toast.LENGTH_LONG).show();
-                    onBackPressed();
+                AlertDialog.Builder alert = new AlertDialog.Builder(UserDetails.this);
+                alert.setTitle("Brisanje");
+                alert.setTitle("Želite li izbisati korisnika?");
+                alert.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete();
+                        dialog.dismiss();
+                    }
+                });
 
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Došlo je do greške. Molimo pokušajte ponovno.",Toast.LENGTH_LONG).show();
-                }
+                alert.setNegativeButton("NE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
             }
         });
 
@@ -89,10 +102,29 @@ public class UserDetails extends AppCompatActivity {
 
     }
 
- /*   @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(),UserList.class);
-        getApplicationContext().startActivity(intent);
-    }*/
+    private void delete(){
+        if (DataStorageSingleton.dataStorage.deleteUser(user.getId())){
+            Toast.makeText(getApplicationContext()
+                    ,String.format("Korisnik %s %s izbrisan",user.getName(),user.getSurname())
+                    ,Toast.LENGTH_LONG).show();
+            onBackPressed();
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Došlo je do greške. Molimo pokušajte ponovno.",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.adapterInit();
+    }
+
+    private void adapterInit(){
+        userCars = DataStorageSingleton.dataStorage.getAllUserCars(userId);
+        carList = new ArrayList<>(userCars);
+        adapter = new CarsAdapter(this,carList,this);
+        listView.setAdapter(adapter);
+    }
 }

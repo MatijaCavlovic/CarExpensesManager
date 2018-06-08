@@ -46,7 +46,7 @@ public class CarsAdapter extends ArrayAdapter<Car> {
                 Toast.makeText(getContext(),car.getName(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(),CarDetails.class);
                 intent.putExtra("car",car.getId());
-                parentActivity.onBackPressed();
+               // parentActivity.onBackPressed();
                 getContext().startActivity(intent);
             }
         });
