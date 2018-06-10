@@ -63,7 +63,7 @@ public class AddCar extends AppCompatActivity {
                 car.setOwnerId(userId);
 
                 if (DataStorageSingleton.dataStorage.addCar(car)){
-                    Toast.makeText(getApplicationContext(), "Automobil "+carNameString + "dodan",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Automobil "+carNameString + " dodan",Toast.LENGTH_LONG).show();
 
                 }
                 else{

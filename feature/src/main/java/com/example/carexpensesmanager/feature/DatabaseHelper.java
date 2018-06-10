@@ -48,6 +48,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+    //EXPENSE
+    private static final String TABLE_NAME_EXPENSE="trosak";
+    private static final String ID_EXPENSE = "ID";
+    private static final String ID_CAR_EXPENSE = "IDAutomobil";
+
+    private static final String TABLE_CREATE_EXPENSE =
+            "create table "+TABLE_NAME_EXPENSE+" "+
+                    "(ID integer primary key not null,"+
+                    "IDAutomobil integer not null)";
+
+    //FUEL EXPENSE
+    private static final String TABLE_NAME_EXPENSE_FUEL="trosakGoriva";
+    private static final String ID_EXPENSE_FUEL = "ID";
+    private static final String EXPENSE_FUEL_DATE = "datum";
+    private static final String EXPENSE_FUEL_PLACE = "mjesto";
+
+    private static final String TABLE_CREATE_EXPENSE_FUEL =
+            "create table "+TABLE_NAME_EXPENSE_FUEL+" "+
+                    "(ID integer primary key not null,"+
+                    "datum text not null,"+
+                    "mjesto text not null,"+
+                    "foreign key(ID) references trosak(ID))";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -56,6 +80,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
         db.execSQL(TABLE_CREATE_CAR);
+        db.execSQL(TABLE_CREATE_EXPENSE);
+        db.execSQL(TABLE_CREATE_EXPENSE_FUEL);
         this.db=db;
     }
 
@@ -64,6 +90,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "DROP TABLE IF EXISTS "+TABLE_NAME_USER;
         db.execSQL(query);
         query = "DROP TABLE IF EXISTS "+TABLE_NAME_CAR;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_FUEL;
         db.execSQL(query);
 
         this.onCreate(db);

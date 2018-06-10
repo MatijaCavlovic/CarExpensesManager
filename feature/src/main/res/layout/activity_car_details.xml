@@ -80,13 +80,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/addCarBtn"
+                android:id="@+id/addExpenseBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/checkbox_margin"
                 android:paddingRight="@dimen/checkbox_margin"
-                android:text="Dodaj automobil" />
+                android:text="Dodaj trošak" />
 
             <Button
                 android:id="@+id/deleteCarBtn"

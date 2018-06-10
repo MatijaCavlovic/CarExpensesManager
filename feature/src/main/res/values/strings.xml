@@ -1,1 +1,8 @@
-<resources></resources>
+<resources>
+    <string-array name="expenseTypes">
+        <item>Osiguranje</item>
+        <item>Registracija</item>
+        <item>Gorivo</item>
+        <item>Servis</item>
+    </string-array>
+</resources>

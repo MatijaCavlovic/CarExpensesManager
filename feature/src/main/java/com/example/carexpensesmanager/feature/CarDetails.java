@@ -2,6 +2,7 @@ package com.example.carexpensesmanager.feature;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class CarDetails extends AppCompatActivity {
 
     TextView carNameTv;
     Button deleteCarBtn;
+    Button addExpenseBtn;
     int carId;
     Car car;
 
@@ -27,7 +29,7 @@ public class CarDetails extends AppCompatActivity {
 
         carNameTv = findViewById(R.id.carName);
         deleteCarBtn = findViewById(R.id.deleteCarBtn);
-
+        addExpenseBtn = findViewById(R.id.addExpenseBtn);
 
         Bundle extras = getIntent().getExtras();
         if (extras!=null){
@@ -70,6 +72,15 @@ public class CarDetails extends AppCompatActivity {
 
             }
         });
+
+        addExpenseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarDetails.this,AddExpense.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void delete(){
