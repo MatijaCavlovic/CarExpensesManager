@@ -8,17 +8,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.feature.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class CarDetails extends AppCompatActivity {
 
     TextView carNameTv;
     Button deleteCarBtn;
     Button addExpenseBtn;
+
+    ListView listView;
+
+    Collection<Expense> carExpenses;
+    ArrayList<Expense> expensesList;
+    ExpensesAdapter adapter;
+
     int carId;
     Car car;
 
@@ -30,6 +42,7 @@ public class CarDetails extends AppCompatActivity {
         carNameTv = findViewById(R.id.carName);
         deleteCarBtn = findViewById(R.id.deleteCarBtn);
         addExpenseBtn = findViewById(R.id.addExpenseBtn);
+        listView = findViewById(R.id.expenseList);
 
         Bundle extras = getIntent().getExtras();
         if (extras!=null){
@@ -45,6 +58,7 @@ public class CarDetails extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Došlo je do pogreške u pristupu podatcima",Toast.LENGTH_LONG).show();
             return;
         }
+        Collection<Expense> c =  DataStorageSingleton.dataStorage.getAllCarExpenses(carId);
         carNameTv.setText(car.getName());
 
         deleteCarBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,5 +109,18 @@ public class CarDetails extends AppCompatActivity {
         else{
             Toast.makeText(getApplicationContext(),"Došlo je do greške. Molimo pokušajte ponovno.",Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.adapterInit();
+    }
+
+    private void adapterInit(){
+        carExpenses = DataStorageSingleton.dataStorage.getAllCarExpenses(carId);
+        expensesList = new ArrayList<>(carExpenses);
+        adapter = new ExpensesAdapter(this,expensesList,this);
+        listView.setAdapter(adapter);
     }
 }

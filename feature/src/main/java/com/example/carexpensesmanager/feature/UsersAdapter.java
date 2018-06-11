@@ -39,7 +39,6 @@ public class UsersAdapter extends ArrayAdapter<User> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
         }
 
-
         TextView tvRow = convertView.findViewById(R.id.tvRow);
         TextView numberOfCarsView = convertView.findViewById(R.id.numberOfCarsTv);
         View element = convertView.findViewById(R.id.element);

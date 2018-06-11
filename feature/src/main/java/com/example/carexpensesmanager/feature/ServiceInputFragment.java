@@ -44,7 +44,7 @@ public class ServiceInputFragment extends Fragment implements  SaveInterface {
     }
 
     @Override
-    public void save(Expense expense) {
+    public void save(int carId) {
         ServiceExpense serviceExpense = new ServiceExpense();
         double price;
         String dateString;
@@ -72,7 +72,7 @@ public class ServiceInputFragment extends Fragment implements  SaveInterface {
             return;
         }
 
-        serviceExpense.setCarId(expense.getCarId());
+        serviceExpense.setCarId(carId);
         serviceExpense.setPrice(price);
         serviceExpense.setDate(date);
 

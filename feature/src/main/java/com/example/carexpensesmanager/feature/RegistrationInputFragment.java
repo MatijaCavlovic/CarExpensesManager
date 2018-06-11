@@ -49,7 +49,7 @@ public class RegistrationInputFragment extends Fragment implements  SaveInterfac
     }
 
     @Override
-    public void save(Expense expense) {
+    public void save(int carId) {
         RegistrationExpense registrationExpense = new RegistrationExpense();
         double price;
         String dateString;
@@ -77,7 +77,7 @@ public class RegistrationInputFragment extends Fragment implements  SaveInterfac
             return;
         }
 
-        registrationExpense.setCarId(expense.getCarId());
+        registrationExpense.setCarId(carId);
         registrationExpense.setPrice(price);
         registrationExpense.setDate(date);
 

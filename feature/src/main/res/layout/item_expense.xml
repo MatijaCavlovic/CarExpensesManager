@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true">
+
+
+    <ImageView
+        android:id="@+id/expenseImage"
+        android:layout_width="74dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/toolbar_image_margin">
+
+        <TextView
+            android:id="@+id/tvRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:paddingBottom="@dimen/checkbox_margin"
+            android:text="Data"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvRow"
+            android:textSize="25dp"
+            android:paddingBottom="@dimen/checkbox_margin"
+            android:paddingTop="@dimen/checkbox_margin"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+</LinearLayout>

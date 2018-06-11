@@ -46,7 +46,7 @@ public class InsuranceInputFragment extends Fragment implements SaveInterface{
     }
 
     @Override
-    public void save(Expense expense) {
+    public void save(int carId) {
         InsuranceExpense insuranceExpense = new InsuranceExpense();
         double price;
         String dateString;
@@ -74,7 +74,7 @@ public class InsuranceInputFragment extends Fragment implements SaveInterface{
             return;
         }
 
-        insuranceExpense.setCarId(expense.getCarId());
+        insuranceExpense.setCarId(carId);
         insuranceExpense.setPrice(price);
         insuranceExpense.setDate(date);
 

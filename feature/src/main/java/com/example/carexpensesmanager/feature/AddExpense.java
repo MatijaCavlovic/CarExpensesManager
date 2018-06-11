@@ -66,8 +66,7 @@ public class AddExpense extends AppCompatActivity implements AdapterView.OnItemS
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Expense expense = new Expense(0,carId);
-                saveHelper.save(expense);
+                saveHelper.save(carId);
             }
         });
 

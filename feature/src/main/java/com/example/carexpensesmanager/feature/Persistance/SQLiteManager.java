@@ -3,6 +3,7 @@ package com.example.carexpensesmanager.feature.Persistance;
 import android.content.Context;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.feature.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
 import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
@@ -76,7 +77,7 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean addFuelExpense(FuelExpense expense) {
-        int id = helper.insertExpense(expense);
+        int id = helper.insertExpense(expense,"Gorivo");
         if (id==-1)
             return false;
         expense.setId(id);
@@ -89,7 +90,7 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean addInsuranceExpense(InsuranceExpense expense) {
-        int id = helper.insertExpense(expense);
+        int id = helper.insertExpense(expense,"Osiguranje");
         if (id==-1)
             return false;
         expense.setId(id);
@@ -102,7 +103,7 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean addServiceExpense(ServiceExpense expense) {
-        int id = helper.insertExpense(expense);
+        int id = helper.insertExpense(expense,"Servis");
         if (id==-1)
             return false;
         expense.setId(id);
@@ -115,7 +116,7 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean addRegistrationExpense(RegistrationExpense expense) {
-        int id = helper.insertExpense(expense);
+        int id = helper.insertExpense(expense,"Registracija");
         if (id==-1)
             return false;
         expense.setId(id);
@@ -124,6 +125,11 @@ public class SQLiteManager implements DataStorage {
         if (id==-1)
             return false;
         return true;
+    }
+
+    @Override
+    public Collection<Expense> getAllCarExpenses(int carId) {
+        return helper.getAllCarsExpenses(carId);
     }
 
 }

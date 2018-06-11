@@ -46,7 +46,7 @@ public class FuelInputFragment extends Fragment implements SaveInterface {
     }
 
     @Override
-    public void save(Expense expense) {
+    public void save(int carId) {
         FuelExpense fuelExpense = new FuelExpense();
         double price;
         String place;
@@ -83,7 +83,7 @@ public class FuelInputFragment extends Fragment implements SaveInterface {
             return;
         }
 
-        fuelExpense.setCarId(expense.getCarId());
+        fuelExpense.setCarId(carId);
         fuelExpense.setPrice(price);
         fuelExpense.setPlace(place);
         fuelExpense.setDate(date);
