@@ -77,6 +77,7 @@ public class CarDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CarDetails.this,AddExpense.class);
+                intent.putExtra("car",carId);
                 startActivity(intent);
             }
         });

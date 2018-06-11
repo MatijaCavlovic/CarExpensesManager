@@ -1,9 +1,17 @@
 package com.example.carexpensesmanager.feature.DBEntity;
 
-public abstract class Expense {
-
+public  class Expense {
     protected int id;
     protected int carId;
+
+    public Expense(){
+       this(0,0);
+    }
+
+    public Expense(int id,int carId){
+        this.id = id;
+        this.carId = carId;
+    }
 
     public int getId() {
         return id;

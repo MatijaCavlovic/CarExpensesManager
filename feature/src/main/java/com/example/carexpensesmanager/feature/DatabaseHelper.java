@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.feature.DBEntity.Expense;
+import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
+import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.util.ArrayList;
@@ -63,14 +68,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String ID_EXPENSE_FUEL = "ID";
     private static final String EXPENSE_FUEL_DATE = "datum";
     private static final String EXPENSE_FUEL_PLACE = "mjesto";
+    private static final String EXPENSE_FUEL_PRICE = "cijena";
 
     private static final String TABLE_CREATE_EXPENSE_FUEL =
             "create table "+TABLE_NAME_EXPENSE_FUEL+" "+
                     "(ID integer primary key not null,"+
                     "datum text not null,"+
                     "mjesto text not null,"+
+                    "cijena real not null,"+
                     "foreign key(ID) references trosak(ID))";
 
+
+    //INSURANCE EXPENSE
+
+    private static final String TABLE_NAME_EXPENSE_INSURANCE="trosakOsiguranja";
+    private static final String EXPENSE_INSURANCE_ID = "ID";
+    private static final String EXPENSE_INSURANCE_DATE = "datum";
+    private static final String EXPENSE_INSURANCE_PRICE = "cijena";
+
+    private static final String TABLE_CREATE_EXPENCE_INSURANCE =
+            "create table "+TABLE_NAME_EXPENSE_INSURANCE+" "+
+                    "(ID integer primary key not null,"+
+                    "datum text not null,"+
+                    "cijena real not null,"+
+                    "foreign key(ID) references trosak(ID))";
+
+    private static final String TABLE_NAME_EXPENSE_REGISTRATION="trosakRegistracije";
+    private static final String EXPENSE_REGISTRATION_ID = "ID";
+    private static final String EXPENSE_REGISTRATION_DATE = "datum";
+    private static final String EXPENSE_REGISTRATION_PRICE = "cijena";
+
+    private static final String TABLE_CREATE_EXPENSE_REGISTRATION =
+            "create table "+TABLE_NAME_EXPENSE_REGISTRATION+" "+
+                    "(ID integer primary key not null,"+
+                    "datum text not null,"+
+                    "cijena real not null,"+
+                    "foreign key(ID) references trosak(ID))";
+
+    private static final String TABLE_NAME_EXPENSE_SERVICE="trosakServisa";
+    private static final String EXPENSE_SERVICE_ID = "ID";
+    private static final String EXPENSE_SERVICE_DATE = "datum";
+    private static final String EXPENSE_SERVICE_PRICE = "cijena";
+
+    private static final String TABLE_CREATE_EXPENSE_SERIVCE =
+            "create table "+TABLE_NAME_EXPENSE_SERVICE+" "+
+                    "(ID integer primary key not null,"+
+                    "datum text not null,"+
+                    "cijena real not null,"+
+                    "foreign key(ID) references trosak(ID))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,6 +127,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_CREATE_CAR);
         db.execSQL(TABLE_CREATE_EXPENSE);
         db.execSQL(TABLE_CREATE_EXPENSE_FUEL);
+        db.execSQL(TABLE_CREATE_EXPENCE_INSURANCE);
+        db.execSQL(TABLE_CREATE_EXPENSE_REGISTRATION);
+        db.execSQL(TABLE_CREATE_EXPENSE_SERIVCE);
         this.db=db;
     }
 
@@ -94,6 +142,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE;
         db.execSQL(query);
         query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_FUEL;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_INSURANCE;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_REGISTRATION;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_SERVICE;
         db.execSQL(query);
 
         this.onCreate(db);
@@ -240,4 +294,94 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+
+    public int insertExpense(Expense expense){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        String query = "SELECT MAX(ID) AS MAXID FROM "+TABLE_NAME_EXPENSE;
+        Cursor cursor = db.rawQuery(query,null);
+        int id=-1;
+        if (cursor!=null){
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+
+        values.put(ID_EXPENSE,id+1);
+        values.put(ID_CAR_EXPENSE,expense.getCarId());
+
+        long error;
+        error = db.insert(TABLE_NAME_EXPENSE,null,values);
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return id+1;
+    }
+
+    public int insertFuelExpense(FuelExpense expense){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(ID_EXPENSE,expense.getId());
+        values.put(EXPENSE_FUEL_DATE,expense.getDateString());
+        values.put(EXPENSE_FUEL_PLACE,expense.getPlace());
+        values.put(EXPENSE_FUEL_PRICE,expense.getPrice());
+        long error;
+        error = db.insert(TABLE_NAME_EXPENSE_FUEL,null,values);
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return expense.getId();
+    }
+
+    public int insertInsuranceExpense(InsuranceExpense expense){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(EXPENSE_INSURANCE_ID,expense.getId());
+        values.put(EXPENSE_INSURANCE_DATE,expense.getDateString());
+        values.put(EXPENSE_INSURANCE_PRICE,expense.getPrice());
+        long error;
+        error = db.insert(TABLE_NAME_EXPENSE_INSURANCE,null,values);
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return expense.getId();
+    }
+
+    public int insertServiceExpense(ServiceExpense expense){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(EXPENSE_SERVICE_ID,expense.getId());
+        values.put(EXPENSE_SERVICE_DATE,expense.getDateString());
+        values.put(EXPENSE_SERVICE_PRICE,expense.getPrice());
+        long error;
+        error = db.insert(TABLE_NAME_EXPENSE_SERVICE,null,values);
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return expense.getId();
+    }
+
+    public int insertRegistrationExpense(RegistrationExpense expense){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(EXPENSE_REGISTRATION_ID,expense.getId());
+        values.put(EXPENSE_REGISTRATION_DATE,expense.getDateString());
+        values.put(EXPENSE_REGISTRATION_PRICE,expense.getPrice());
+        long error;
+        error = db.insert(TABLE_NAME_EXPENSE_REGISTRATION,null,values);
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return expense.getId();
+    }
+
 }

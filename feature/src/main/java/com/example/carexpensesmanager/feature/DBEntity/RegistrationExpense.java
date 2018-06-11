@@ -3,22 +3,21 @@ package com.example.carexpensesmanager.feature.DBEntity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FuelExpense extends Expense {
+public class RegistrationExpense extends Expense {
 
     private Date date;
     private double price;
-    private String place;
 
-    public FuelExpense(){
-        this(0,0,null,0,null);
+    public RegistrationExpense(){
+        this(0,0,null,0);
     }
 
-    public  FuelExpense(int id,int car_id,Date date,double price, String place){
+    public RegistrationExpense(int id,int car_id,Date date,double price){
         this.id = id;
         this.carId = car_id;
         this.date = date;
         this.price = price;
-        this.place = place;
+
     }
 
     public Date getDate() {
@@ -37,13 +36,6 @@ public class FuelExpense extends Expense {
         this.price = price;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
 
     public String getDateString(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");

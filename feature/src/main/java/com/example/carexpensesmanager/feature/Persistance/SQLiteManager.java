@@ -3,6 +3,10 @@ package com.example.carexpensesmanager.feature.Persistance;
 import android.content.Context;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
+import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.DatabaseHelper;
 
@@ -70,5 +74,56 @@ public class SQLiteManager implements DataStorage {
         return false;
     }
 
+    @Override
+    public boolean addFuelExpense(FuelExpense expense) {
+        int id = helper.insertExpense(expense);
+        if (id==-1)
+            return false;
+        expense.setId(id);
+
+        id = helper.insertFuelExpense(expense);
+        if (id==-1)
+            return false;
+        return true;
+    }
+
+    @Override
+    public boolean addInsuranceExpense(InsuranceExpense expense) {
+        int id = helper.insertExpense(expense);
+        if (id==-1)
+            return false;
+        expense.setId(id);
+
+        id = helper.insertInsuranceExpense(expense);
+        if (id==-1)
+            return false;
+        return true;
+    }
+
+    @Override
+    public boolean addServiceExpense(ServiceExpense expense) {
+        int id = helper.insertExpense(expense);
+        if (id==-1)
+            return false;
+        expense.setId(id);
+
+        id = helper.insertServiceExpense(expense);
+        if (id==-1)
+            return false;
+        return true;
+    }
+
+    @Override
+    public boolean addRegistrationExpense(RegistrationExpense expense) {
+        int id = helper.insertExpense(expense);
+        if (id==-1)
+            return false;
+        expense.setId(id);
+
+        id = helper.insertRegistrationExpense(expense);
+        if (id==-1)
+            return false;
+        return true;
+    }
 
 }

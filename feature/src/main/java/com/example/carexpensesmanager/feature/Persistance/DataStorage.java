@@ -3,6 +3,10 @@ package com.example.carexpensesmanager.feature.Persistance;
 import android.content.Context;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
+import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.io.File;
@@ -26,4 +30,12 @@ public interface DataStorage {
     public Car getCar(int id);
 
     public boolean deleteCar(int id);
+
+    public boolean addFuelExpense(FuelExpense expense);
+
+    public boolean addInsuranceExpense(InsuranceExpense expense);
+
+    public boolean addServiceExpense(ServiceExpense expense);
+
+    public boolean addRegistrationExpense(RegistrationExpense expense);
 }
