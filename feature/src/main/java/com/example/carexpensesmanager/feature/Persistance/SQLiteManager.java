@@ -9,10 +9,10 @@ import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.User;
-import com.example.carexpensesmanager.feature.DatabaseHelper;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 public class SQLiteManager implements DataStorage {
 
@@ -43,6 +43,13 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean deleteUser(int id) {
+        Collection<Car> cars = helper.getAllUserCars(id);
+
+        for (Car c:cars){
+            if (!this.deleteCar(c.getId()))
+                return false;
+        }
+
         if (helper.deleteUser(id) > 0)
             return true;
         return false;
@@ -70,6 +77,22 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean deleteCar(int id) {
+
+        Collection<Expense> expenses = helper.getAllCarsExpenses(id);
+
+        for (Expense e:expenses){
+            if (e.getType().equals("Gorivo"))
+                this.deleteFuelExpense(e.getId());
+            else if (e.getType().equals("Osiguranje"))
+                this.deleteInsuranceExpense(e.getId());
+            else if (e.getType().equals("Registracija"))
+                this.deleteRegistrationExpense(e.getId());
+            else if (e.getType().equals("Servis"))
+                this.deleteServiceExpense(e.getId());
+            else
+                return false;
+        }
+
         if (helper.deleteCar(id) > 0)
             return true;
         return false;
@@ -130,6 +153,68 @@ public class SQLiteManager implements DataStorage {
     @Override
     public Collection<Expense> getAllCarExpenses(int carId) {
         return helper.getAllCarsExpenses(carId);
+    }
+
+    @Override
+    public FuelExpense getFuelExpense(int expenseId) {
+        return helper.getFuelExpense(expenseId);
+    }
+
+    @Override
+    public InsuranceExpense getInsuranceExpense(int expenseId) {
+        return helper.getInsuranceExpense(expenseId);
+    }
+
+    @Override
+    public RegistrationExpense getRegistrationExpense(int expenseId) {
+        return helper.getRegistrationExpense(expenseId);
+    }
+
+    @Override
+    public ServiceExpense getServiceExpense(int expenseId) {
+        return helper.getServiceExpense(expenseId);
+    }
+
+    private boolean deleteExpense(int expenseId){
+        if (helper.deleteExpense(expenseId) > 0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean deleteFuelExpense(int expenseId) {
+        if (helper.deleteFuelExpense(expenseId)<=0){
+            return false;
+        }
+
+        return this.deleteExpense(expenseId);
+    }
+
+    @Override
+    public boolean deleteInsuranceExpense(int expenseId) {
+        if (helper.deleteInsuranceExpense(expenseId)<=0){
+            return false;
+        }
+
+        return this.deleteExpense(expenseId);
+    }
+
+    @Override
+    public boolean deleteRegistrationExpense(int expenseId) {
+        if (helper.deleteRegistrationExpense(expenseId)<=0){
+            return false;
+        }
+
+        return this.deleteExpense(expenseId);
+    }
+
+    @Override
+    public boolean deleteServiceExpense(int expenseId) {
+        if (helper.deleteServiceExpense(expenseId)<=0){
+            return false;
+        }
+
+        return this.deleteExpense(expenseId);
     }
 
 }

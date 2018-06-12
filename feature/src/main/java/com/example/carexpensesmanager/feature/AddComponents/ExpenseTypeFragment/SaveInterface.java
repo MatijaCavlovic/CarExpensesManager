@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment;
 
 import com.example.carexpensesmanager.feature.DBEntity.Expense;
 

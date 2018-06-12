@@ -9,15 +9,16 @@
 
     <ImageView
         android:id="@+id/expenseImage"
-        android:layout_width="89dp"
-        android:layout_height="75dp"
+        android:layout_width="70dp"
+        android:layout_height="64dp"
         android:layout_alignParentLeft="true"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/toolbar_image_margin">
+        android:paddingLeft="@dimen/toolbar_image_margin"
+        android:paddingRight="@dimen/toolbar_image_margin">
 
         <TextView
             android:id="@+id/tvRow"
@@ -34,10 +35,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvRow"
-            android:textSize="25dp"
             android:paddingBottom="@dimen/checkbox_margin"
             android:paddingTop="@dimen/checkbox_margin"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/priceTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvRow"
+            android:paddingBottom="@dimen/checkbox_margin"
+            android:paddingTop="@dimen/checkbox_margin"
+            android:text="TextView"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

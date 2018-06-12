@@ -1,5 +1,4 @@
-package com.example.carexpensesmanager.feature;
-
+package com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,16 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
-import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
-import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.feature.AddComponents.DatePicker;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.feature.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InsuranceInputFragment extends Fragment implements SaveInterface{
+public class ServiceInputFragment extends Fragment implements SaveInterface {
 
     private Button dateSelectBtn;
     private EditText dateEditText;
@@ -30,12 +29,11 @@ public class InsuranceInputFragment extends Fragment implements SaveInterface{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_insurance_input,container,false);
+        View view = inflater.inflate(R.layout.fragment_service_input,container,false);
 
         dateSelectBtn = view.findViewById(R.id.selectDateBtn);
-        dateEditText = view.findViewById(R.id.insuranceDate);
+        dateEditText = view.findViewById(R.id.serviceDate);
         priceEditText = view.findViewById(R.id.priceEditView);
-
         dateSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +45,7 @@ public class InsuranceInputFragment extends Fragment implements SaveInterface{
 
     @Override
     public void save(int carId) {
-        InsuranceExpense insuranceExpense = new InsuranceExpense();
+        ServiceExpense serviceExpense = new ServiceExpense();
         double price;
         String dateString;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -74,11 +72,11 @@ public class InsuranceInputFragment extends Fragment implements SaveInterface{
             return;
         }
 
-        insuranceExpense.setCarId(carId);
-        insuranceExpense.setPrice(price);
-        insuranceExpense.setDate(date);
+        serviceExpense.setCarId(carId);
+        serviceExpense.setPrice(price);
+        serviceExpense.setDate(date);
 
-        boolean success = DataStorageSingleton.dataStorage.addInsuranceExpense(insuranceExpense);
+        boolean success = DataStorageSingleton.dataStorage.addServiceExpense(serviceExpense);
         if (success){
             Toast.makeText(getContext(),"Trošak uspješno unesen",Toast.LENGTH_LONG).show();
 

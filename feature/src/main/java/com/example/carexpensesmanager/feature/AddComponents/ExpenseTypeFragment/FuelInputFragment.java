@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
+import com.example.carexpensesmanager.feature.AddComponents.DatePicker;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.feature.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

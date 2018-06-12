@@ -43,4 +43,22 @@ public interface DataStorage {
     public boolean addRegistrationExpense(RegistrationExpense expense);
 
     public Collection<Expense> getAllCarExpenses(int carId);
+
+    public FuelExpense getFuelExpense(int expenseId);
+
+    public InsuranceExpense getInsuranceExpense(int expenseId);
+
+    public RegistrationExpense getRegistrationExpense(int expenseId);
+
+    public ServiceExpense getServiceExpense(int expenseId);
+
+    public boolean deleteFuelExpense(int expenseId);
+
+    public boolean deleteInsuranceExpense(int expenseId);
+
+    public boolean deleteRegistrationExpense(int expenseId);
+
+    public boolean deleteServiceExpense(int expenseId);
+
+
 }

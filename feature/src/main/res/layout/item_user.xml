@@ -10,9 +10,11 @@
     <ImageView
         android:id="@+id/userImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="84dp"
         android:layout_alignParentLeft="true"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        android:paddingBottom="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        app:srcCompat="@drawable/person" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.Persistance;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,6 +14,7 @@ import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -452,6 +453,135 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (!cursor.moveToNext())
                 break;
         }
+        db.close();
+        return result;
+    }
+
+    public FuelExpense getFuelExpense(int expenseId){
+        FuelExpense result = null;
+        db = this.getReadableDatabase();
+
+        String query = String.format("select * from trosak join trosakGoriva on "+
+                "trosak.ID=trosakGoriva.ID and trosak.ID = %d",expenseId);
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new FuelExpense();
+        result.setId(cursor.getInt(0));
+        result.setCarId(cursor.getInt(1));
+        result.setDate(cursor.getString(3));
+        result.setPrice(cursor.getDouble(4));
+        result.setPlace(cursor.getString(6));
+
+        return result;
+    }
+
+    public InsuranceExpense getInsuranceExpense(int expenseId){
+        InsuranceExpense result = null;
+        db = this.getReadableDatabase();
+
+        String query = String.format("select * from trosak join trosakOsiguranja on "+
+                "trosak.ID=trosakOsiguranja.ID and trosak.ID = %d",expenseId);
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new InsuranceExpense();
+        result.setId(cursor.getInt(0));
+        result.setCarId(cursor.getInt(1));
+        result.setDate(cursor.getString(3));
+        result.setPrice(cursor.getDouble(4));
+
+        return result;
+    }
+
+    public RegistrationExpense getRegistrationExpense(int expenseId){
+        RegistrationExpense result = null;
+        db = this.getReadableDatabase();
+
+        String query = String.format("select * from trosak join trosakRegistracije on "+
+                "trosak.ID=trosakRegistracije.ID and trosak.ID = %d",expenseId);
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new RegistrationExpense();
+        result.setId(cursor.getInt(0));
+        result.setCarId(cursor.getInt(1));
+        result.setDate(cursor.getString(3));
+        result.setPrice(cursor.getDouble(4));
+
+        return result;
+    }
+
+    public ServiceExpense getServiceExpense(int expenseId){
+        ServiceExpense result = null;
+        db = this.getReadableDatabase();
+
+        String query = String.format("select * from trosak join trosakServisa on "+
+                "trosak.ID=trosakServisa.ID and trosak.ID = %d",expenseId);
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = new ServiceExpense();
+        result.setId(cursor.getInt(0));
+        result.setCarId(cursor.getInt(1));
+        result.setDate(cursor.getString(3));
+        result.setPrice(cursor.getDouble(4));
+
+        return result;
+    }
+
+    public int deleteExpense(int expenseId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_EXPENSE,ID_EXPENSE+"="+expenseId+"",null);
+        db.close();
+        return result;
+    }
+
+    public int deleteFuelExpense(int expenseId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_EXPENSE_FUEL,ID_EXPENSE_FUEL+"="+expenseId+"",null);
+        db.close();
+        return result;
+    }
+
+    public int deleteInsuranceExpense(int expenseId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_EXPENSE_INSURANCE,ID_EXPENSE+"="+expenseId+"",null);
+        db.close();
+        return result;
+    }
+
+    public int deleteRegistrationExpense(int expenseId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_EXPENSE_REGISTRATION,ID_EXPENSE+"="+expenseId+"",null);
+        db.close();
+        return result;
+    }
+
+    public int deleteServiceExpense(int expenseId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_EXPENSE_SERVICE,ID_EXPENSE+"="+expenseId+"",null);
         db.close();
         return result;
     }

@@ -1,23 +1,20 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.Details;
 
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.DataAdapter.UsersAdapter;
 import com.example.carexpensesmanager.feature.Persistance.DataStorage;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
-import com.example.carexpensesmanager.feature.Persistance.SQLiteManager;
+import com.example.carexpensesmanager.feature.Persistance.DatabaseHelper;
+import com.example.carexpensesmanager.feature.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class UserList extends AppCompatActivity {
 

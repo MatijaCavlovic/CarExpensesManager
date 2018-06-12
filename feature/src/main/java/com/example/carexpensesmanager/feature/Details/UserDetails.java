@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.Details;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,9 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carexpensesmanager.feature.AddComponents.AddCar;
 import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.DataAdapter.CarsAdapter;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.feature.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -78,7 +81,7 @@ public class UserDetails extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(UserDetails.this);
                 alert.setTitle("Brisanje");
-                alert.setTitle("Želite li izbisati korisnika?");
+                alert.setTitle("Želite li izbisati korisnika i sve podatke vezane uz njega?");
                 alert.setPositiveButton("DA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

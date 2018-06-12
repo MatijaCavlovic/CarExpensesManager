@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.DataAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carexpensesmanager.feature.Details.CarDetails;
 import com.example.carexpensesmanager.feature.DBEntity.Car;
-import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.feature.R;
 
 import java.util.ArrayList;
 
@@ -37,9 +38,10 @@ public class CarsAdapter extends ArrayAdapter<Car> {
 
         TextView tvRow = convertView.findViewById(R.id.tvRow);
         tvRow.setText(car.getName());
-        tvRow.setTag(car);
+        View element = convertView.findViewById(R.id.element);
+        element.setTag(car);
 
-        tvRow.setOnClickListener(new View.OnClickListener() {
+        element.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Car car = (Car) v.getTag();

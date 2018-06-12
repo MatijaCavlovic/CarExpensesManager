@@ -1,15 +1,15 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.AddComponents;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.feature.Persistance.DatabaseHelper;
+import com.example.carexpensesmanager.feature.R;
 
 public class AddUser extends AppCompatActivity {
 

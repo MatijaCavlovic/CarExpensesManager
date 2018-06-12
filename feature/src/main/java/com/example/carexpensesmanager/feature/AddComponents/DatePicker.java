@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.AddComponents;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

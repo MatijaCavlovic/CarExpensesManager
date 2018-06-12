@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.feature.AddComponents;
 
 
 import android.support.v4.app.Fragment;
@@ -12,11 +12,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
+import com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment.FuelInputFragment;
+import com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment.InsuranceInputFragment;
+import com.example.carexpensesmanager.feature.R;
+import com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment.RegistrationInputFragment;
+import com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment.SaveInterface;
+import com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment.ServiceInputFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AddExpense extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
