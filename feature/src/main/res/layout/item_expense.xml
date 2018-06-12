@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/expenseImage"
-        android:layout_width="74dp"
-        android:layout_height="64dp"
+        android:layout_width="89dp"
+        android:layout_height="75dp"
         android:layout_alignParentLeft="true"
         app:srcCompat="@drawable/ic_launcher_background" />
 

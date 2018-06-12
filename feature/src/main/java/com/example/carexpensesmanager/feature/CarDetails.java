@@ -58,7 +58,6 @@ public class CarDetails extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Došlo je do pogreške u pristupu podatcima",Toast.LENGTH_LONG).show();
             return;
         }
-        Collection<Expense> c =  DataStorageSingleton.dataStorage.getAllCarExpenses(carId);
         carNameTv.setText(car.getName());
 
         deleteCarBtn.setOnClickListener(new View.OnClickListener() {
