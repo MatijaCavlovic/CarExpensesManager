@@ -1,5 +1,10 @@
 package com.example.carexpensesmanager.feature.Persistance;
 
+/**
+ * @startuml
+ *
+ */
+
 import android.content.Context;
 
 import com.example.carexpensesmanager.feature.DBEntity.Car;
@@ -14,6 +19,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public interface DataStorage {
 
@@ -60,5 +66,6 @@ public interface DataStorage {
 
     public boolean deleteServiceExpense(int expenseId);
 
+    public double getExpenseSum(int carId);
 
 }

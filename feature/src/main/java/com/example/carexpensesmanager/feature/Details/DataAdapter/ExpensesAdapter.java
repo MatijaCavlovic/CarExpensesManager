@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.DataAdapter;
+package com.example.carexpensesmanager.feature.Details.DataAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
-import com.example.carexpensesmanager.feature.Details.CarDetails;
 import com.example.carexpensesmanager.feature.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.Details.ExpenseDetails.FuelExpenseDetails;
 import com.example.carexpensesmanager.feature.Details.ExpenseDetails.InsuranceExpenseDetails;

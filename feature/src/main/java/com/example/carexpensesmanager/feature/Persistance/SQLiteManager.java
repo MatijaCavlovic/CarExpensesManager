@@ -217,4 +217,9 @@ public class SQLiteManager implements DataStorage {
         return this.deleteExpense(expenseId);
     }
 
+    @Override
+    public double getExpenseSum(int carId) {
+        return helper.getExpenseSum(carId);
+    }
+
 }

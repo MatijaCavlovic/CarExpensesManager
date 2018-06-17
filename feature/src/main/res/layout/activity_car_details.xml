@@ -46,6 +46,33 @@
                 android:textStyle="bold" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ukupni troškovi"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/expenseSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/checkbox_margin"
+                android:paddingLeft="@dimen/toolbar_image_margin"
+                android:paddingRight="@dimen/checkbox_margin"
+                android:paddingTop="@dimen/checkbox_margin"
+                android:text="TextView"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </TableRow>
+
+
     </TableLayout>
 
     <LinearLayout

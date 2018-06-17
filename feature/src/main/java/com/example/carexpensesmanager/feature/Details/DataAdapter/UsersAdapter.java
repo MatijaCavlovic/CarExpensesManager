@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.DataAdapter;
+package com.example.carexpensesmanager.feature.Details.DataAdapter;
 
 import android.content.Context;
 import android.content.Intent;

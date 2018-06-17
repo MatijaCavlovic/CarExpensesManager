@@ -586,5 +586,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public double getExpenseSum (int carId){
+        double result = 0;
+        db = this.getReadableDatabase();
+        String query = String.format("SELECT sum(%s) as ukTrosak FROM %s WHERE %s=%d",EXPENSE_PRICE,TABLE_NAME_EXPENSE,ID_CAR_EXPENSE,carId);
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        result = cursor.getDouble(0);
+        db.close();
+        return  result;
+    }
 
 }

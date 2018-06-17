@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.carexpensesmanager.feature.AddComponents.AddExpense;
 import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.Expense;
-import com.example.carexpensesmanager.feature.DataAdapter.ExpensesAdapter;
+import com.example.carexpensesmanager.feature.Details.DataAdapter.ExpensesAdapter;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
@@ -24,6 +24,8 @@ import java.util.Collection;
 public class CarDetails extends AppCompatActivity {
 
     TextView carNameTv;
+    TextView expenseSumTv;
+
     Button deleteCarBtn;
     Button addExpenseBtn;
 
@@ -42,6 +44,8 @@ public class CarDetails extends AppCompatActivity {
         setContentView(R.layout.activity_car_details);
 
         carNameTv = findViewById(R.id.carName);
+        expenseSumTv = findViewById(R.id.expenseSum);
+
         deleteCarBtn = findViewById(R.id.deleteCarBtn);
         addExpenseBtn = findViewById(R.id.addExpenseBtn);
         listView = findViewById(R.id.expenseList);
@@ -56,11 +60,14 @@ public class CarDetails extends AppCompatActivity {
         }
 
         car = DataStorageSingleton.dataStorage.getCar(carId);
+
+
         if (car==null){
             Toast.makeText(getApplicationContext(),"Došlo je do pogreške u pristupu podatcima",Toast.LENGTH_LONG).show();
             return;
         }
         carNameTv.setText(car.getName());
+        this.initExpensesSum();
 
         deleteCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +123,8 @@ public class CarDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.adapterInit();
+        double expenseSum = DataStorageSingleton.dataStorage.getExpenseSum(carId);
+        this.initExpensesSum();
     }
 
     private void adapterInit(){
@@ -123,5 +132,10 @@ public class CarDetails extends AppCompatActivity {
         expensesList = new ArrayList<>(carExpenses);
         adapter = new ExpensesAdapter(this,expensesList,this);
         listView.setAdapter(adapter);
+    }
+
+    private void initExpensesSum(){
+        double expenseSum = DataStorageSingleton.dataStorage.getExpenseSum(carId);
+        expenseSumTv.setText(String.format("%.2f HRK",expenseSum));
     }
 }

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.User;
-import com.example.carexpensesmanager.feature.DataAdapter.UsersAdapter;
+import com.example.carexpensesmanager.feature.Details.DataAdapter.UsersAdapter;
 import com.example.carexpensesmanager.feature.Persistance.DataStorage;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.Persistance.DatabaseHelper;

@@ -29,7 +29,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 public class MainActivity extends AppCompatActivity {
 
     public FTPClient mFTPClient = null;
@@ -40,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
      Button getDbBtn;
      TextView title;
      FilePickerDialog dialog;
-     String dbPath;
-     String dbcopyPath;
      String databaseFile;
      DataStorage dataStorage;
      DatabaseHelper helper = new DatabaseHelper(this);
