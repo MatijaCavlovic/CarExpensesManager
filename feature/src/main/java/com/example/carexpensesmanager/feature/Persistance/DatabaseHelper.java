@@ -30,11 +30,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //USER
     private static final String TABLE_NAME_USER ="korisnik";
-    private static final String ID_USER = "ID";
-    private static final String NAME_USER = "Ime";
-    private static final String SURNAME_USER = "Prezime";
+    private static final String USER_ID_USER = "ID";
+    private static final String USER_NAME_USER = "Ime";
+    private static final String USER_SURNAME_USER = "Prezime";
 
     private static final String TABLE_CREATE =
+
             "create table "+TABLE_NAME_USER+" "+
             "(ID integer primary key not null,"+
             "Ime text not null,"+
@@ -43,9 +44,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //CAR
     private static final String TABLE_NAME_CAR="automobil";
-    private static final String ID_CAR = "ID";
-    private static final String NAME_CAR ="Naziv";
-    private static final String ID_OWNER = "IDVlasnik";
+    private static final String CAR_ID_CAR = "ID";
+    private static final String CAR_NAME_CAR ="Naziv";
+    private static final String CAR_ID_OWNER = "IDVlasnik";
 
     private static final String TABLE_CREATE_CAR =
             "create table "+TABLE_NAME_CAR+" "+
@@ -58,8 +59,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //EXPENSE
     private static final String TABLE_NAME_EXPENSE="trosak";
-    private static final String ID_EXPENSE = "ID";
-    private static final String ID_CAR_EXPENSE = "IDAutomobil";
+    private static final String EXPENSE_ID_EXPENSE = "ID";
+    private static final String EXPENSE_ID_CAR = "IDAutomobil";
     private static final String EXPENSE_ID_EXPENSE_TYPE = "IDVrstaTroska";
     private static final String EXPENSE_DATE = "datum";
     private static final String EXPENSE_PRICE = "cijena";
@@ -115,10 +116,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME_EXPENSE_SERVICE="trosakServisa";
     private static final String EXPENSE_SERVICE_ID = "ID";
+    private static final String EXPENSE_SERVICE_DESCRIPTION = "opis";
 
     private static final String TABLE_CREATE_EXPENSE_SERVICE =
             "create table "+TABLE_NAME_EXPENSE_SERVICE+" "+
                     "(ID integer primary key not null,"+
+                    "opis text not null,"+
                     "foreign key(ID) references trosak(ID))";
 
     public DatabaseHelper(Context context) {
@@ -193,9 +196,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        values.put(ID_USER,id+1);
-        values.put(NAME_USER,user.getName());
-        values.put(SURNAME_USER,user.getSurname());
+        values.put(USER_ID_USER,id+1);
+        values.put(USER_NAME_USER,user.getName());
+        values.put(USER_SURNAME_USER,user.getSurname());
         long error;
         error = db.insert(TABLE_NAME_USER,null,values);
 
@@ -233,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public User getUser(int id){
         User result = null;
         db = this.getReadableDatabase();
-        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_USER,ID_USER,id);
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_USER,USER_ID_USER,id);
         Cursor cursor = db.rawQuery(query,null);
         if (!cursor.moveToFirst()){
             return result;
@@ -247,7 +250,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteUser(int id){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_USER,ID_USER+"="+id+"",null);
+        result = db.delete(TABLE_NAME_USER,USER_ID_USER+"="+id+"",null);
         db.close();
         return result;
     }
@@ -264,9 +267,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        values.put(ID_CAR,id+1);
-        values.put(NAME_CAR,car.getName());
-        values.put(ID_OWNER,car.getOwnerId());
+        values.put(CAR_ID_CAR,id+1);
+        values.put(CAR_NAME_CAR,car.getName());
+        values.put(CAR_ID_OWNER,car.getOwnerId());
 
         long error;
         error = db.insert(TABLE_NAME_CAR,null,values);
@@ -282,7 +285,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Collection<Car> getAllUserCars(int userId){
         db = this.getReadableDatabase();
 
-        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR,ID_OWNER,userId);
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR, CAR_ID_OWNER,userId);
 
         Cursor cursor = db.rawQuery(query,null);
         List<Car> result = new ArrayList<>();
@@ -304,7 +307,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Car getCar(int id){
         Car result = null;
         db = this.getReadableDatabase();
-        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR,ID_CAR,id);
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_CAR,CAR_ID_CAR,id);
         Cursor cursor = db.rawQuery(query,null);
         if (!cursor.moveToFirst()){
             return result;
@@ -318,7 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteCar(int id){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_CAR,ID_CAR+"="+id+"",null);
+        result = db.delete(TABLE_NAME_CAR,CAR_ID_CAR+"="+id+"",null);
         db.close();
         return result;
     }
@@ -347,8 +350,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        values.put(ID_EXPENSE,id+1);
-        values.put(ID_CAR_EXPENSE,expense.getCarId());
+        values.put(EXPENSE_ID_EXPENSE,id+1);
+        values.put(EXPENSE_ID_CAR,expense.getCarId());
         values.put(EXPENSE_ID_EXPENSE_TYPE,idType);
         values.put(EXPENSE_DATE,expense.getDateString());
         values.put(EXPENSE_PRICE,expense.getPrice());
@@ -366,7 +369,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ID_EXPENSE,expense.getId());
+        values.put(EXPENSE_ID_EXPENSE,expense.getId());
         values.put(EXPENSE_FUEL_PLACE,expense.getPlace());
 
         long error;
@@ -397,7 +400,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(EXPENSE_SERVICE_ID,expense.getId());
-
+        values.put(EXPENSE_SERVICE_DESCRIPTION,expense.getDescription());
         long error;
         error = db.insert(TABLE_NAME_EXPENSE_SERVICE,null,values);
         db.close();
@@ -426,7 +429,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
 
         String query = String.format("SELECT * from %s join %s on %s.%s=%d and %s.%s=%s.%s",
-                                    TABLE_NAME_EXPENSE,TABLE_NAME_EXPENSE_TYPE,TABLE_NAME_EXPENSE,ID_CAR_EXPENSE,
+                                    TABLE_NAME_EXPENSE,TABLE_NAME_EXPENSE_TYPE,TABLE_NAME_EXPENSE,EXPENSE_ID_CAR,
                 carId,TABLE_NAME_EXPENSE_TYPE,ID_EXPENSE_TYPE,TABLE_NAME_EXPENSE,EXPENSE_ID_EXPENSE_TYPE);
 
    //     String query = String.format("SELECT * FROM %s WHERE %s=%d",TABLE_NAME_EXPENSE,ID_CAR_EXPENSE,carId);
@@ -540,8 +543,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         result = new ServiceExpense();
         result.setId(cursor.getInt(0));
         result.setCarId(cursor.getInt(1));
+
         result.setDate(cursor.getString(3));
         result.setPrice(cursor.getDouble(4));
+        result.setDescription(cursor.getString(6));
 
         return result;
     }
@@ -549,7 +554,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteExpense(int expenseId){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_EXPENSE,ID_EXPENSE+"="+expenseId+"",null);
+        result = db.delete(TABLE_NAME_EXPENSE,EXPENSE_ID_EXPENSE+"="+expenseId+"",null);
         db.close();
         return result;
     }
@@ -565,7 +570,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteInsuranceExpense(int expenseId){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_EXPENSE_INSURANCE,ID_EXPENSE+"="+expenseId+"",null);
+        result = db.delete(TABLE_NAME_EXPENSE_INSURANCE,EXPENSE_ID_EXPENSE+"="+expenseId+"",null);
         db.close();
         return result;
     }
@@ -573,7 +578,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteRegistrationExpense(int expenseId){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_EXPENSE_REGISTRATION,ID_EXPENSE+"="+expenseId+"",null);
+        result = db.delete(TABLE_NAME_EXPENSE_REGISTRATION,EXPENSE_ID_EXPENSE+"="+expenseId+"",null);
         db.close();
         return result;
     }
@@ -581,7 +586,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteServiceExpense(int expenseId){
         db = this.getWritableDatabase();
         int result;
-        result = db.delete(TABLE_NAME_EXPENSE_SERVICE,ID_EXPENSE+"="+expenseId+"",null);
+        result = db.delete(TABLE_NAME_EXPENSE_SERVICE,EXPENSE_ID_EXPENSE+"="+expenseId+"",null);
         db.close();
         return result;
     }
@@ -589,7 +594,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public double getExpenseSum (int carId){
         double result = 0;
         db = this.getReadableDatabase();
-        String query = String.format("SELECT sum(%s) as ukTrosak FROM %s WHERE %s=%d",EXPENSE_PRICE,TABLE_NAME_EXPENSE,ID_CAR_EXPENSE,carId);
+        String query = String.format("SELECT sum(%s) as ukTrosak FROM %s WHERE %s=%d",EXPENSE_PRICE,TABLE_NAME_EXPENSE,EXPENSE_ID_CAR,carId);
 
         Cursor cursor = db.rawQuery(query,null);
         if (!cursor.moveToFirst()){

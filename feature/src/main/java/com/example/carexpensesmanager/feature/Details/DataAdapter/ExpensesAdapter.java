@@ -51,6 +51,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
         TextView tvRow = convertView.findViewById(R.id.tvRow);
         TextView dateTV = convertView.findViewById(R.id.dateTV);
         TextView priceTv = convertView.findViewById(R.id.priceTV);
+        View element = convertView.findViewById(R.id.element);
 
         ImageView imageView = convertView.findViewById(R.id.expenseImage);
         imageView.setImageResource(expenseImageMap.get(expense.getType()));
@@ -58,9 +59,9 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
         tvRow.setText(expense.getType()+"");
         dateTV.setText(expense.getDateString());
         priceTv.setText(String.format("%.2f",expense.getPrice())+" HRK");
-        tvRow.setTag(expense);
 
-        tvRow.setOnClickListener(new View.OnClickListener() {
+        element.setTag(expense);
+        element.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Expense expense = (Expense) v.getTag();

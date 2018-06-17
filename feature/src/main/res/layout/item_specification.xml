@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true">
+
+
+    <EditText
+        android:id="@+id/expenseElementNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Naziv"
+
+        android:paddingBottom="@dimen/checkbox_margin"
+        android:textSize="20dp"
+         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/expenseElementPriceEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Cijena"
+            android:layout_alignParentLeft="true"
+            android:inputType="numberDecimal"
+            android:paddingBottom="@dimen/checkbox_margin"
+            android:textSize="20dp"
+             />
+
+        <ImageButton
+            android:id="@+id/removeExpenseElementBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@android:drawable/ic_delete" />
+    </RelativeLayout>
+
+
+</LinearLayout>

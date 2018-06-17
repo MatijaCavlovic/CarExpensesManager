@@ -16,9 +16,10 @@ import com.example.carexpensesmanager.feature.R;
 
 public class ServiceExpenseDetails extends AppCompatActivity {
 
-    TextView dateTv;
-    TextView priceTv;
-    Button deleteExpenseBtn;
+    private TextView dateTv;
+    private TextView priceTv;
+    private Button deleteExpenseBtn;
+    private TextView descriptionTv;
 
     int expenseId;
     @Override
@@ -28,6 +29,7 @@ public class ServiceExpenseDetails extends AppCompatActivity {
 
         dateTv = findViewById(R.id.dateTV);
         priceTv = findViewById(R.id.priceTV);
+        descriptionTv = findViewById(R.id.descriptionTextView);
 
         deleteExpenseBtn = findViewById(R.id.deleteExpenseBtn);
 
@@ -49,6 +51,7 @@ public class ServiceExpenseDetails extends AppCompatActivity {
 
         dateTv.setText(serviceExpense.getDateString());
         priceTv.setText(String.format("%.2f",serviceExpense.getPrice())+" HRK");
+        descriptionTv.setText(serviceExpense.getDescription());
 
         deleteExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override

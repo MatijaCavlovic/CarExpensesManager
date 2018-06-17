@@ -76,6 +76,24 @@
 
     </TableLayout>
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/checkbox_margin"
+        android:text="Opis servisa"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/toolbar_image_margin"
+        android:text="Opis servisa"
+        android:textSize="20dp" />
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -98,4 +116,5 @@
                 android:text="Izbriši trošak" />
         </LinearLayout>
     </RelativeLayout>
+
 </android.widget.LinearLayout>

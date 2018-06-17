@@ -31,10 +31,50 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/descriptionEditView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="top"
+        android:hint="Opis servisa"
+        android:inputType="text|textMultiLine" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/checkbox_margin"
+        android:paddingLeft="@dimen/checkbox_margin"
+        android:paddingRight="@dimen/checkbox_margin"
+        android:paddingTop="@dimen/toolbar_image_margin"
+        android:text="Pojedinačni troškovi"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:id="@+id/specificationsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/addServiceSpecificationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:text="Nova stavka" />
+    </RelativeLayout>
+    <EditText
         android:id="@+id/priceEditView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Cijena"
+        android:focusable="false"
         android:inputType="numberDecimal" />
 </android.widget.LinearLayout>
