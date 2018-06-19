@@ -8,6 +8,7 @@ import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
 import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.io.File;
@@ -125,7 +126,7 @@ public class SQLiteManager implements DataStorage {
     }
 
     @Override
-    public boolean addServiceExpense(ServiceExpense expense) {
+    public boolean addServiceExpense(ServiceExpense expense,List<ServiceExpenseElement> elements) {
         int id = helper.insertExpense(expense,"Servis");
         if (id==-1)
             return false;
@@ -134,6 +135,16 @@ public class SQLiteManager implements DataStorage {
         id = helper.insertServiceExpense(expense);
         if (id==-1)
             return false;
+
+        int serviceId = id;
+        for (int i=0;i<elements.size();i++) {
+            ServiceExpenseElement element = elements.get(i);
+            element.setServiceExpenseId(serviceId);
+            id = helper.insertServiceExpenseElement(element);
+            if (id==-1){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -147,6 +158,8 @@ public class SQLiteManager implements DataStorage {
         id = helper.insertRegistrationExpense(expense);
         if (id==-1)
             return false;
+
+
         return true;
     }
 
@@ -210,6 +223,14 @@ public class SQLiteManager implements DataStorage {
 
     @Override
     public boolean deleteServiceExpense(int expenseId) {
+
+        Collection<ServiceExpenseElement> elements = helper.getAllServiceExpenseElements(expenseId);
+        for (ServiceExpenseElement element:elements){
+            if (helper.deleteExpenseElement(element.getId())<=0){
+                return false;
+            }
+        }
+
         if (helper.deleteServiceExpense(expenseId)<=0){
             return false;
         }
@@ -221,5 +242,16 @@ public class SQLiteManager implements DataStorage {
     public double getExpenseSum(int carId) {
         return helper.getExpenseSum(carId);
     }
+
+    @Override
+    public Collection<ServiceExpenseElement> getAllServiceExpenseElements(int serviceId) {
+        return helper.getAllServiceExpenseElements(serviceId);
+    }
+
+    @Override
+    public boolean deleteExpenseElement(int id) {
+        return false;
+    }
+
 
 }

@@ -13,6 +13,7 @@ import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
 import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 import com.example.carexpensesmanager.feature.Utils;
 
@@ -106,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "(ID integer primary key not null,"+
                     "foreign key(ID) references trosak(ID))";
 
+    //REGISTRATION EXPENSE
     private static final String TABLE_NAME_EXPENSE_REGISTRATION="trosakRegistracije";
     private static final String EXPENSE_REGISTRATION_ID = "ID";
 
@@ -114,6 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "(ID integer primary key not null,"+
                     "foreign key(ID) references trosak(ID))";
 
+    //SERVICE EXPENSE
     private static final String TABLE_NAME_EXPENSE_SERVICE="trosakServisa";
     private static final String EXPENSE_SERVICE_ID = "ID";
     private static final String EXPENSE_SERVICE_DESCRIPTION = "opis";
@@ -123,6 +126,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "(ID integer primary key not null,"+
                     "opis text not null,"+
                     "foreign key(ID) references trosak(ID))";
+
+    //SERVICE EXPENSE ELEMENT
+    private static final String TABLE_NAME_SERVICE_EXPENSE_ELEMENT="trosakServisaStavka";
+    private static final String SERVICE_EXPENSE_ELEMENT_ID = "ID";
+    private static final String SERVICE_EXPENSE_ELEMENT_SERVICE_EXPENSE_ID = "IDServis";
+    private static final String SERVICE_EXPENSE_ELEMENT_DESCRIPTION = "opis";
+    private static final String SERVICE_EXPENSE_ELEMENT_PRICE = "cijena";
+
+    private static final String TABLE_CREATE_SERVICE_EXPENSE_ELEMENT =
+            "create table "+TABLE_NAME_SERVICE_EXPENSE_ELEMENT+" "+
+                    "(ID integer primary key not null,"+
+                    "IDServis integer not null,"+
+                    "opis text not null,"+
+                    "cijena real not null,"+
+                    "foreign key(IDServis) references trosakServisa(ID))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -139,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_CREATE_EXPENSE_REGISTRATION);
         db.execSQL(TABLE_CREATE_EXPENSE_SERVICE);
         db.execSQL(TABLE_CREATE_EXPENSE_TYPE);
+        db.execSQL(TABLE_CREATE_SERVICE_EXPENSE_ELEMENT);
         this.db=db;
         this.init();
     }
@@ -160,6 +179,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_SERVICE;
         db.execSQL(query);
         query = "DROP TABLE IF EXISTS "+TABLE_NAME_EXPENSE_TYPE;
+        db.execSQL(query);
+        query = "DROP TABLE IF EXISTS "+TABLE_NAME_SERVICE_EXPENSE_ELEMENT;
         db.execSQL(query);
         this.onCreate(db);
     }
@@ -605,5 +626,68 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return  result;
     }
+
+    public int insertServiceExpenseElement(ServiceExpenseElement element){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        String query = "SELECT MAX(ID) AS MAXID FROM "+TABLE_NAME_SERVICE_EXPENSE_ELEMENT;
+        Cursor cursor = db.rawQuery(query,null);
+        int id=-1;
+        if (cursor!=null){
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+
+        values.put(SERVICE_EXPENSE_ELEMENT_ID,id+1);
+        values.put(SERVICE_EXPENSE_ELEMENT_SERVICE_EXPENSE_ID,element.getServiceExpenseId());
+        values.put(SERVICE_EXPENSE_ELEMENT_DESCRIPTION,element.getDescription());
+        values.put(SERVICE_EXPENSE_ELEMENT_PRICE,element.getPrice());
+        long error;
+        error = db.insert(TABLE_NAME_SERVICE_EXPENSE_ELEMENT,null,values);
+
+        db.close();
+
+        if (error==-1)
+            return -1;
+        return id+1;
+
+    }
+
+    public Collection<ServiceExpenseElement> getAllServiceExpenseElements(int serviceId){
+        db = this.getReadableDatabase();
+
+        String query = String.format("SELECT * FROM %s WHERE %s=%d",
+                TABLE_NAME_SERVICE_EXPENSE_ELEMENT, SERVICE_EXPENSE_ELEMENT_SERVICE_EXPENSE_ID,serviceId);
+
+        Cursor cursor = db.rawQuery(query,null);
+        List<ServiceExpenseElement> result = new ArrayList<>();
+
+        if (!cursor.moveToFirst()){
+            return result;
+        }
+
+        while (cursor!=null){
+           ServiceExpenseElement element = new ServiceExpenseElement();
+           element.setId(cursor.getInt(0));
+           element.setServiceExpenseId(cursor.getInt(1));
+           element.setDescription(cursor.getString(2));
+           element.setPrice(cursor.getDouble(3));
+            result.add(element);
+            if (!cursor.moveToNext())
+                break;
+        }
+        db.close();
+        return result;
+    }
+
+    public int deleteExpenseElement(int elementId){
+        db = this.getWritableDatabase();
+        int result;
+        result = db.delete(TABLE_NAME_SERVICE_EXPENSE_ELEMENT,SERVICE_EXPENSE_ELEMENT_ID+"="+elementId+"",null);
+        db.close();
+        return result;
+    }
+
 
 }

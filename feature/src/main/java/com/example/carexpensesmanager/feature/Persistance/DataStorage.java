@@ -13,11 +13,13 @@ import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
 import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
 import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
 import com.example.carexpensesmanager.feature.DBEntity.User;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -44,7 +46,7 @@ public interface DataStorage {
 
     public boolean addInsuranceExpense(InsuranceExpense expense);
 
-    public boolean addServiceExpense(ServiceExpense expense);
+    public boolean addServiceExpense(ServiceExpense expense, List<ServiceExpenseElement> elements);
 
     public boolean addRegistrationExpense(RegistrationExpense expense);
 
@@ -67,5 +69,12 @@ public interface DataStorage {
     public boolean deleteServiceExpense(int expenseId);
 
     public double getExpenseSum(int carId);
+
+    public Collection<ServiceExpenseElement> getAllServiceExpenseElements(int serviceId);
+
+    public boolean deleteExpenseElement(int id);
+
+
+
 
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.AddComponents.DatePicker;
+import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
@@ -103,6 +104,7 @@ public class ServiceInputFragment extends Fragment implements SaveInterface {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Date date;
 
+        this.setPrice();
         try {
             price = Double.parseDouble(priceEditText.getText().toString());
         }
@@ -131,12 +133,17 @@ public class ServiceInputFragment extends Fragment implements SaveInterface {
             return;
         }
 
+        if (this.validateExpenseElements()==false)
+            return;
+
         serviceExpense.setCarId(carId);
         serviceExpense.setPrice(price);
         serviceExpense.setDate(date);
         serviceExpense.setDescription(descriptionString);
 
-        boolean success = DataStorageSingleton.dataStorage.addServiceExpense(serviceExpense);
+        List<ServiceExpenseElement> expenseElementList = this.getExpenseElements();
+
+        boolean success = DataStorageSingleton.dataStorage.addServiceExpense(serviceExpense,expenseElementList);
         if (success){
             Toast.makeText(getContext(),"Trošak uspješno unesen",Toast.LENGTH_LONG).show();
 
@@ -159,5 +166,51 @@ public class ServiceInputFragment extends Fragment implements SaveInterface {
         } ).sum();
 
         priceEditText.setText(price + "");
+    }
+
+    private boolean validateExpenseElements(){
+        int elementNumber = 1;
+        for (View v:expenseElements){
+            EditText descriptionEt = v.findViewById(R.id.expenseElementNameEditText);
+            EditText priceEt = v.findViewById(R.id.expenseElementPriceEditText);
+            String descriptionString = descriptionEt.getText().toString();
+
+            if (descriptionString==null || descriptionString.isEmpty()){
+                Toast.makeText(getContext(),String.format("Opis stavke broj %d nije ispravan ili unesen.",elementNumber),Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            String priceString = priceEt.getText().toString();
+
+            try{
+                double price = Double.parseDouble(priceString);
+            }
+            catch (Exception e){
+                Toast.makeText(getContext(),String.format("Cijena stavke broj %d nije ispravna ili unesena",elementNumber),Toast.LENGTH_LONG).show();
+                return false;
+            }
+            elementNumber++;
+        }
+        return true;
+    }
+
+    private List<ServiceExpenseElement> getExpenseElements(){
+        List<ServiceExpenseElement> list = new ArrayList<>();
+
+        for (View v:expenseElements) {
+            EditText descriptionEt = v.findViewById(R.id.expenseElementNameEditText);
+            EditText priceEt = v.findViewById(R.id.expenseElementPriceEditText);
+            String descriptionString = descriptionEt.getText().toString();
+            String priceString = priceEt.getText().toString();
+            double price = Double.parseDouble(priceString);
+
+            ServiceExpenseElement serviceExpenseElement = new ServiceExpenseElement();
+            serviceExpenseElement.setDescription(descriptionString);
+            serviceExpenseElement.setPrice(price);
+
+            list.add(serviceExpenseElement);
+        }
+
+        return list;
     }
 }

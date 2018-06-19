@@ -8,6 +8,14 @@
     android:paddingRight="@dimen/checkbox_margin"
     tools:context=".MainActivity">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -82,8 +90,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingLeft="@dimen/checkbox_margin"
+        android:paddingTop="@dimen/toolbar_image_margin"
         android:text="Opis servisa"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -94,9 +104,35 @@
         android:textSize="20dp" />
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/checkbox_margin"
+        android:paddingTop="@dimen/toolbar_image_margin"
+        android:text="Pojedinačni troškovi"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/expenseElementsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/checkbox_margin"></LinearLayout>
+
+    <TableLayout
+
+        android:id="@+id/expenseSpecificationTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/checkbox_margin"
+        android:stretchColumns="*"></TableLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/checkbox_margin">
 
 
         <LinearLayout
@@ -115,6 +151,8 @@
                 android:paddingRight="@dimen/checkbox_margin"
                 android:text="Izbriši trošak" />
         </LinearLayout>
-    </RelativeLayout>
 
+    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </android.widget.LinearLayout>

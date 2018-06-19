@@ -27,12 +27,12 @@
             android:id="@+id/expenseElementPriceEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Cijena"
             android:layout_alignParentLeft="true"
+            android:hint="Cijena"
+            android:layout_toLeftOf="@id/removeExpenseElementBtn"
             android:inputType="numberDecimal"
             android:paddingBottom="@dimen/checkbox_margin"
-            android:textSize="20dp"
-             />
+            android:textSize="20dp" />
 
         <ImageButton
             android:id="@+id/removeExpenseElementBtn"
