@@ -15,6 +15,7 @@ import com.example.carexpensesmanager.feature.AddComponents.AddExpense;
 import com.example.carexpensesmanager.feature.DBEntity.Car;
 import com.example.carexpensesmanager.feature.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.Details.DataAdapter.ExpensesAdapter;
+import com.example.carexpensesmanager.feature.Graph;
 import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
@@ -28,7 +29,7 @@ public class CarDetails extends AppCompatActivity {
 
     Button deleteCarBtn;
     Button addExpenseBtn;
-
+    Button statisticsBtn;
     ListView listView;
 
     Collection<Expense> carExpenses;
@@ -48,6 +49,7 @@ public class CarDetails extends AppCompatActivity {
 
         deleteCarBtn = findViewById(R.id.deleteCarBtn);
         addExpenseBtn = findViewById(R.id.addExpenseBtn);
+        statisticsBtn = findViewById(R.id.statisticsBtn);
         listView = findViewById(R.id.expenseList);
 
         Bundle extras = getIntent().getExtras();
@@ -104,6 +106,14 @@ public class CarDetails extends AppCompatActivity {
             }
         });
 
+        statisticsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarDetails.this,Graph.class);
+                intent.putExtra("car",carId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void delete(){

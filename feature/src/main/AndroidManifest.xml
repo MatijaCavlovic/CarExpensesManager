@@ -34,8 +34,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".AddComponents.AddUser">
@@ -47,8 +47,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.UserDetails">
@@ -60,8 +60,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".AddComponents.AddCar">
@@ -73,8 +73,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.CarDetails">
@@ -86,8 +86,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".AddComponents.AddExpense">
@@ -99,8 +99,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.ExpenseDetails.FuelExpenseDetails">
@@ -112,8 +112,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.ExpenseDetails.InsuranceExpenseDetails">
@@ -125,8 +125,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.ExpenseDetails.RegistrationExpenseDetails">
@@ -138,8 +138,8 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.ExpenseDetails.ServiceExpenseDetails">
@@ -151,8 +151,34 @@
 
                 <data
                     android:host="example.com"
-                    android:pathPattern="/.*"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/.*" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Graph">
+            <intent-filter android:order="1">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="example.com"
+                    android:scheme="https"
+                    android:path="/.*" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Test">
+            <intent-filter android:order="1">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="example.com"
+                    android:scheme="https"
+                    android:path="/test" />
             </intent-filter>
         </activity>
     </application>
