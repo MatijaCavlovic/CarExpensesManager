@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.Persistance;
+package com.example.carexpensesmanager.base.Persistance;
 
 public class DataStorageSingleton {
 

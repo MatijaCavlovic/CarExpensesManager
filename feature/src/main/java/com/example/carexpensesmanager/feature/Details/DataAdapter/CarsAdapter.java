@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.Details.CarDetails;
-import com.example.carexpensesmanager.feature.DBEntity.Car;
+import com.example.carexpensesmanager.base.DBEntity.Car;
 import com.example.carexpensesmanager.feature.R;
 
 import java.util.ArrayList;

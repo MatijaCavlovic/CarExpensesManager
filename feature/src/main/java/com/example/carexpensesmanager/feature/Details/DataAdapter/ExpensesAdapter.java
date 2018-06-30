@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
+import com.example.carexpensesmanager.base.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.Details.ExpenseDetails.FuelExpenseDetails;
 import com.example.carexpensesmanager.feature.Details.ExpenseDetails.InsuranceExpenseDetails;
 import com.example.carexpensesmanager.feature.Details.ExpenseDetails.RegistrationExpenseDetails;

@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.Persistance;
+package com.example.carexpensesmanager.base.Persistance;
 
 /**
  * @startuml
@@ -7,20 +7,18 @@ package com.example.carexpensesmanager.feature.Persistance;
 
 import android.content.Context;
 
-import com.example.carexpensesmanager.feature.DBEntity.Car;
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
-import com.example.carexpensesmanager.feature.DBEntity.FuelExpense;
-import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
-import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
-import com.example.carexpensesmanager.feature.DBEntity.User;
+import com.example.carexpensesmanager.base.DBEntity.Car;
+import com.example.carexpensesmanager.base.DBEntity.Expense;
+import com.example.carexpensesmanager.base.DBEntity.FuelExpense;
+import com.example.carexpensesmanager.base.DBEntity.InsuranceExpense;
+import com.example.carexpensesmanager.base.DBEntity.RegistrationExpense;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpenseElement;
+import com.example.carexpensesmanager.base.DBEntity.User;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public interface DataStorage {

@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.DBEntity;
+package com.example.carexpensesmanager.base.DBEntity;
 
 public class User {
 

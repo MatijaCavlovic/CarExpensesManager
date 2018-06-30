@@ -3,7 +3,6 @@ package com.example.carexpensesmanager.feature.AddComponents.ExpenseTypeFragment
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TabWidget;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpense;
 import com.example.carexpensesmanager.feature.AddComponents.DatePicker;
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpenseElement;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
 import java.text.ParseException;
@@ -26,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 
 public class ServiceInputFragment extends Fragment implements SaveInterface {

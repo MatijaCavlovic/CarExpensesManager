@@ -12,11 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.AddComponents.AddExpense;
-import com.example.carexpensesmanager.feature.DBEntity.Car;
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
+import com.example.carexpensesmanager.base.DBEntity.Car;
+import com.example.carexpensesmanager.base.DBEntity.Expense;
 import com.example.carexpensesmanager.feature.Details.DataAdapter.ExpensesAdapter;
 import com.example.carexpensesmanager.feature.Graph;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
 import java.util.ArrayList;

@@ -4,23 +4,18 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpense;
-import com.example.carexpensesmanager.feature.DBEntity.ServiceExpenseElement;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpense;
+import com.example.carexpensesmanager.base.DBEntity.ServiceExpenseElement;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
 import java.util.Collection;
-import java.util.List;
 
 public class ServiceExpenseDetails extends AppCompatActivity {
 

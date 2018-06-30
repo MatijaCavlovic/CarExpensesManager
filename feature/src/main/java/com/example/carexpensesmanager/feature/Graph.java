@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.Expense;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.DBEntity.Expense;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;

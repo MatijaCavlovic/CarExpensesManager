@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.User;
-import com.example.carexpensesmanager.feature.Persistance.DatabaseHelper;
+import com.example.carexpensesmanager.base.DBEntity.User;
+import com.example.carexpensesmanager.base.Persistance.DatabaseHelper;
 import com.example.carexpensesmanager.feature.R;
 
 public class AddUser extends AppCompatActivity {

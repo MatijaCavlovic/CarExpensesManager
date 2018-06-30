@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.DBEntity;
+package com.example.carexpensesmanager.base.DBEntity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

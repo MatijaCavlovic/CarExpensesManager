@@ -14,10 +14,10 @@ import android.widget.Toast;
 
 import com.example.carexpensesmanager.feature.AddComponents.AddUser;
 import com.example.carexpensesmanager.feature.Details.UserList;
-import com.example.carexpensesmanager.feature.Persistance.DataStorage;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
-import com.example.carexpensesmanager.feature.Persistance.DatabaseHelper;
-import com.example.carexpensesmanager.feature.Persistance.SQLiteManager;
+import com.example.carexpensesmanager.base.Persistance.DataStorage;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.Persistance.DatabaseHelper;
+import com.example.carexpensesmanager.base.Persistance.SQLiteManager;
 import com.github.angads25.filepicker.view.FilePickerDialog;
 
 import org.apache.commons.net.ftp.FTP;

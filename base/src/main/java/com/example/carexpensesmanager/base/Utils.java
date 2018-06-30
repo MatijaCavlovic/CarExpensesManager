@@ -1,6 +1,8 @@
-package com.example.carexpensesmanager.feature;
+package com.example.carexpensesmanager.base;
 
 import android.content.Context;
+
+import com.example.carexpensesmanager.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

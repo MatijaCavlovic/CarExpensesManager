@@ -8,12 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.Car;
-import com.example.carexpensesmanager.feature.DBEntity.User;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.DBEntity.Car;
+import com.example.carexpensesmanager.base.DBEntity.User;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
-
-import org.w3c.dom.Text;
 
 public class AddCar extends AppCompatActivity {
 
@@ -28,7 +26,7 @@ public class AddCar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_car);
+        this.setContentView(R.layout.activity_add_car);
 
         userNameSurname = findViewById(R.id.userTv);
         carName = findViewById(R.id.carName);

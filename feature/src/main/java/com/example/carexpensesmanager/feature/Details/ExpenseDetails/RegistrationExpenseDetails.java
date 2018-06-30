@@ -9,9 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.carexpensesmanager.feature.DBEntity.InsuranceExpense;
-import com.example.carexpensesmanager.feature.DBEntity.RegistrationExpense;
-import com.example.carexpensesmanager.feature.Persistance.DataStorageSingleton;
+import com.example.carexpensesmanager.base.DBEntity.RegistrationExpense;
+import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
 import com.example.carexpensesmanager.feature.R;
 
 public class RegistrationExpenseDetails extends AppCompatActivity {

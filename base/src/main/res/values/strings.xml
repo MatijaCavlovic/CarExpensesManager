@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Car Expenses Manager</string>
+    <string-array name="expenseTypes">
+        <item>Osiguranje</item>
+        <item>Registracija</item>
+        <item>Gorivo</item>
+        <item>Servis</item>
+    </string-array>
 </resources>
