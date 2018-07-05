@@ -45,7 +45,6 @@ public class CarsAdapter extends ArrayAdapter<Car> {
             @Override
             public void onClick(View v) {
                 Car car = (Car) v.getTag();
-                Toast.makeText(getContext(),car.getName(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(),CarDetails.class);
                 intent.putExtra("car",car.getId());
                // parentActivity.onBackPressed();

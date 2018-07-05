@@ -253,5 +253,10 @@ public class SQLiteManager implements DataStorage {
         return false;
     }
 
+    public static void DatabaseInit(Context context){
+        if (DataStorageSingleton.dataStorage==null){
+            DataStorageSingleton.setDataStorage(new SQLiteManager(context));
+        }
+    }
 
 }

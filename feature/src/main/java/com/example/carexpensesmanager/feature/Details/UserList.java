@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carexpensesmanager.base.DBEntity.User;
+import com.example.carexpensesmanager.base.Persistance.SQLiteManager;
 import com.example.carexpensesmanager.feature.Details.DataAdapter.UsersAdapter;
 import com.example.carexpensesmanager.base.Persistance.DataStorage;
 import com.example.carexpensesmanager.base.Persistance.DataStorageSingleton;
@@ -28,11 +29,12 @@ public class UserList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        SQLiteManager.DatabaseInit(getApplicationContext());
+
         this.getIntent().putExtra("choosenUser",-1);
-       // choosenUserId = -1;
-       // LinearLayout list = findViewById(R.id.list);
+
         listView = findViewById(R.id.listView);
-     //   dataStorage = new SQLiteManager(this);
+
         DatabaseHelper helper = new DatabaseHelper(this);
         Collection<User> users = helper.getAllUsers();
 

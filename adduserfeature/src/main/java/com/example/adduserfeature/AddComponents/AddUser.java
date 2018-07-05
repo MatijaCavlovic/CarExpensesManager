@@ -1,4 +1,4 @@
-package com.example.carexpensesmanager.feature.AddComponents;
+package com.example.adduserfeature.AddComponents;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.adduserfeature.R;
 import com.example.carexpensesmanager.base.DBEntity.User;
 import com.example.carexpensesmanager.base.Persistance.DatabaseHelper;
 import com.example.carexpensesmanager.base.Persistance.SQLiteManager;
-import com.example.carexpensesmanager.feature.R;
 
 public class AddUser extends AppCompatActivity {
 

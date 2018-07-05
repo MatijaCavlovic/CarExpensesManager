@@ -15,7 +15,6 @@ import com.example.carexpensesmanager.feature.R;
 
 public class AddCar extends AppCompatActivity {
 
-
     TextView userNameSurname;
     EditText carName;
     Button addCarBtn;
@@ -54,7 +53,10 @@ public class AddCar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String carNameString = carName.getText().toString();
-
+                if (carNameString==null || carNameString.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Naziv automobila nije unesen",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Car car = new Car();
 
                 car.setId(0);

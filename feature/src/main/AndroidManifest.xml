@@ -35,7 +35,7 @@
                 <data
                     android:host="example.com"
                     android:scheme="https"
-                    android:path="/.*" />
+                    android:path="/users" />
             </intent-filter>
         </activity>
         <activity android:name=".AddComponents.AddUser">
@@ -48,7 +48,7 @@
                 <data
                     android:host="example.com"
                     android:scheme="https"
-                    android:path="/.*" />
+                    android:path="/addUser" />
             </intent-filter>
         </activity>
         <activity android:name=".Details.UserDetails">

@@ -32,17 +32,15 @@ import java.io.OutputStream;
 public class MainActivity extends AppCompatActivity {
 
     public FTPClient mFTPClient = null;
-
-     Button btn;
-     Button explorerButton;
-     Button listUsersBtn;
-     Button getDbBtn;
-     TextView title;
-     FilePickerDialog dialog;
-     String databaseFile;
-     DataStorage dataStorage;
-     DatabaseHelper helper = new DatabaseHelper(this);
-    // public static String DB_FILEPAth = "/data/data/com.example.carexpensesmanager.feature/databases/carManager.db";
+     private Button btn;
+     private Button explorerButton;
+     private Button listUsersBtn;
+     private Button getDbBtn;
+     private TextView title;
+     private String databaseFile;
+     private DataStorage dataStorage;
+     private DatabaseHelper helper = new DatabaseHelper(this);
+     private int nOfConections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         databaseFile = getBaseContext().getDatabasePath(helper.getDatabaseName()).toString();
        // title.setText(databaseFile);
 
-
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
         explorerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ftpConnect("192.168.137.1","Matija","kokikoki",21);
+                boolean success;
+                success =  ftpConnect("192.168.137.1","Matija","kokikoki",21);
+                if (success){
+                    Toast.makeText(getApplicationContext(),"Podatci uspješno spremljeni",Toast.LENGTH_LONG).show();
                     }
-                }).start();
+                    else {
+                    Toast.makeText(getApplicationContext(),"Greška u pristupu serveru",Toast.LENGTH_LONG).show();
+
+                    }
+
             }
 
 
@@ -98,7 +96,15 @@ public class MainActivity extends AppCompatActivity {
         getDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
+                boolean success;
+                success = ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
+                if (success){
+                    Toast.makeText(getApplicationContext(),"Podatci uspješno dohvaćeni",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Greška u pristupu serveru",Toast.LENGTH_LONG).show();
+
+                }
              /*   new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -111,28 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(dialog!=null)
-                    {   //Show dialog if the read permission has been granted.
-                        dialog.show();
-                    }
-                }
-                else {
-                    //Permission has not been granted. Notify the user.
-                    Toast.makeText(MainActivity.this,"Potrebna je dozvola za pristup datotečnom sustavu",Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-
     public boolean ftpConnect(String host, String username,
                               String password, int port)
     {
+        if (nOfConections!=0)
+            nOfConections=0;
+
         try {
 
             mFTPClient = new FTPClient();
@@ -190,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean ftpConnectGet(String host, String username,
                               String password, int port)
     {
+        if (nOfConections!=0)
+            nOfConections=0;
+
         try {
             mFTPClient = new FTPClient();
 
@@ -239,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
                     fos.flush();
                     mFTPClient.logout();
                     mFTPClient.disconnect();
+                    nOfConections++;
+                    if (nOfConections>=30) return false;
                     ftpConnectGet("192.168.137.1","Matija","kokikoki",21);
 
                     e.printStackTrace();
